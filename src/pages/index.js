@@ -177,10 +177,10 @@ import Seo from '../components/seo'
 const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
-      <p>I'm building this site by following the Gatsby Tutorial.</p>
+      <p>Hey, I'm Anthony. Welcome to my blog site!</p>
       <StaticImage
-        alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
-        src="https://pbs.twimg.com/media/E1oMV3QVgAIr1NT?format=jpg&name=large"
+        alt="Cover"
+        src="./cover.png"
       />
     </Layout>
   )
