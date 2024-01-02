@@ -3,6 +3,27 @@ import Layout from '../components/layout'
 import { StaticImage } from 'gatsby-plugin-image'
 import Seo from '../components/seo'
 
+
+const IndexPage = () => {
+  return (
+    <Layout pageTitle="Home Page">
+      <p>Hey, I'm Anthony. Welcome to my blog site.</p>
+      <p>This will be the place where I post
+        contents that <s>aren't allowed on other platforms</s> share about my thoughts on various topics,
+        including but not limited to engineering, literature, art, and personal development.
+      </p>
+      <StaticImage
+        alt="Cover"
+        src="./profile-2.jpg"
+      />
+    </Layout>
+  )
+}
+
+export const Head = () => <Seo title="Home Page" />
+
+export default IndexPage
+
 // const pageStyles = {
 //   color: "#232129",
 //   padding: 96,
@@ -173,19 +194,3 @@ import Seo from '../components/seo'
 //     </main>
 //   )
 // }
-
-const IndexPage = () => {
-  return (
-    <Layout pageTitle="Home Page">
-      <p>Hey, I'm Anthony. Welcome to my blog site!</p>
-      <StaticImage
-        alt="Cover"
-        src="./cover.png"
-      />
-    </Layout>
-  )
-}
-
-export const Head = () => <Seo title="Home Page" />
-
-export default IndexPage

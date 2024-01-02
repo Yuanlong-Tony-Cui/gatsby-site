@@ -11,13 +11,12 @@ const AboutPage = () => {
           Anthony Cui
         </a>.
       </p>
-      <p>
-        <s>
-          I haven't yet come up with a formal introduction of myself,
+      <p> I haven't yet come up with a formal introduction of myself
+        <s>,
           but since <i>I</i> built this blog,
           I get to put whatever I want here for now.
           blah blah blah
-        </s>
+        </s>.
       </p>
       <StaticImage
         alt="Profile"
