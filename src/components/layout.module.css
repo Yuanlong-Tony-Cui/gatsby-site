@@ -5,7 +5,7 @@
 }
 
 .heading {
-    color: rebeccapurple;
+    color: burlywood;
 }
 
 .nav-links {
@@ -19,12 +19,43 @@
 }
 
 .nav-link-text {
-    color: black;
+    color: #111111;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.nav-link-text:hover {
+    color: burlywood;
 }
 
 .site-title {
     font-size: 3rem;
-    color: gray;
+    color: burlywood;
     font-weight: 700;
     margin: 3rem 0;
+}
+
+.post-link-text {
+    font-weight: normal;
+    transition: color 0.2s;
+}
+
+.post-link-text:link {
+    color: #111111;
+}
+
+.post-link-text:visited {
+    color: #111111;
+}
+
+.post-link-text:hover {
+    color: burlywood;
+}
+
+.post-desc {
+    color: darkgray;
+}
+
+.post-entry {
+    margin-bottom: 40px;
 }

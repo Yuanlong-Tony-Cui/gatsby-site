@@ -9,7 +9,7 @@ const IndexPage = () => {
     <Layout pageTitle="Home Page">
       <p>Hey, I'm Anthony. Welcome to my blog site.</p>
       <p>This will be the place where I post
-        contents that <s>aren't allowed on other platforms</s> share about my thoughts on various topics,
+        contents that <s>are prohibited on other platforms</s> share about my thoughts on various topics,
         including but not limited to engineering, literature, art, and personal development.
       </p>
       <StaticImage
