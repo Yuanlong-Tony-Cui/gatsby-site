@@ -4,8 +4,7 @@ import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 import {
   postLinkText,
-  postDesc,
-  postEntry
+  postDesc
 } from '../../components/layout.module.css'
 
 const BlogPage = ({ data }) => {
@@ -13,13 +12,13 @@ const BlogPage = ({ data }) => {
       <Layout pageTitle="Blog Posts">
         {
           data.allMdx.nodes.map((node) => (
-            <article key={node.id} className={postEntry}>
+            <article key={node.id}>
               <h2>
                 <Link to={`/blog/${node.frontmatter.slug}`} className={postLinkText}>
                   {node.frontmatter.title}
                 </Link>
               </h2>
-              <p className={postDesc}>Last Updated: {node.frontmatter.date}</p>
+              <p className={postDesc}>- Last Updated: {node.frontmatter.date}</p>
             </article>
           ))
         }
