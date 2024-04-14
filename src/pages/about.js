@@ -13,8 +13,8 @@ const AboutPage = () => {
       </p>
       <p> I haven't yet come up with a formal introduction of myself
         <s>,
-          but since <i>I</i> built this blog,
-          I get to put whatever I want here for now.
+          but since I built this blog,
+          I get to put whatever I want to fill out the space.
           blah blah blah
         </s>.
       </p>
