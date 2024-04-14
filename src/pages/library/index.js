@@ -9,7 +9,7 @@ import {
 
 const LibraryPage = ({ data }) => {
     return (
-      <Layout pageTitle="Space Posts">
+      <Layout pageTitle="Posts: Library">
         {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>
@@ -44,6 +44,6 @@ export const query = graphql`
   }
 `
 
-export const Head = () => <Seo title="My Blog Posts" />
+export const Head = () => <Seo title="Blog Posts" />
 
 export default LibraryPage

@@ -9,7 +9,7 @@ import {
 
 const StudioPage = ({ data }) => {
     return (
-      <Layout pageTitle="Space Posts">
+      <Layout pageTitle="Posts: Studio">
         {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>
@@ -44,6 +44,6 @@ export const query = graphql`
   }
 `
 
-export const Head = () => <Seo title="My Blog Posts" />
+export const Head = () => <Seo title="Blog Posts" />
 
 export default StudioPage
