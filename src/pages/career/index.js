@@ -14,7 +14,7 @@ const BlogPage = ({ data }) => {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>
               <h2>
-                <Link to={`/blog/${node.frontmatter.slug}`} className={postLinkText}>
+                <Link to={`/career/${node.frontmatter.slug}`} className={postLinkText}>
                   {node.frontmatter.title}
                 </Link>
               </h2>
@@ -28,7 +28,10 @@ const BlogPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allMdx(sort: { frontmatter: { date: DESC }}) {
+    allMdx(
+      filter: { frontmatter: { category: { eq: "career" } } }
+      sort: { frontmatter: { date: DESC }}
+    ) {
       nodes {
         frontmatter {
           date(formatString: "MMMM D, YYYY")

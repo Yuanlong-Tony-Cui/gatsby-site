@@ -9,7 +9,7 @@ module.exports = {
   plugins: [
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
-    {
+    { // Create `File` nodes from files under `blog`:
       resolve: "gatsby-source-filesystem",
       options: {
         name: `blog`,
