@@ -7,7 +7,7 @@ const AboutPage = () => {
   return (
     <Layout pageTitle="About Me">
       <p>
-        Hi, I'm <a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer">
+        Hi, this is <a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer">
           Anthony Cui
         </a>.
       </p>
