@@ -25,8 +25,7 @@ const IndexPage = () => {
         <br/>
         <li>
           The Library section is comprised of traditional blog posts - most likely in plain text,
-          where I <s>try to squeeze out as much literature knowledge in my brain as I could</s> would
-          for example share what books I read recently.
+          where I would for example share what books I read and what articles I wrote recently.
         </li>
         <br/>
         <li>
