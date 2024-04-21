@@ -8,14 +8,36 @@ const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
       <p>Hey, my name is Anthony. Welcome to my blog site.</p>
-      <p>This will be the place where I post
+      <StaticImage
+        alt="Cover"
+        src="./profile-home.jpg"
+      />
+      <p>
+        This will be the place where I post
         contents that <s>no one will be interested in</s> share about my thoughts on various topics,
         including but not limited to engineering, literature, art, and personal development.
       </p>
-      <StaticImage
-        alt="Cover"
-        src="./profile-2.jpg"
-      />
+      <ul>
+        <li>
+          The Career section includes topics mostly related to my experiences in engineering fields.
+          I'm currently still in the process of migrating and adding posts into this section.
+        </li>
+        <br/>
+        <li>
+          The Library section is comprised of traditional blog posts - most likely in plain text,
+          where I <s>try to squeeze out as much literature knowledge in my brain as I could</s>
+          would for example share what books I read recently.
+        </li>
+        <br/>
+        <li>
+          The Studio section is a collection of digital media I have worked on under Bayan Studio.
+          Be it music covers, fan-made videos, and even illustrations - this section would probably
+          reveal the unknown aspects of me that many of my friends wouldn't even know about.
+        </li>
+      </ul>
+      <p>
+        Stay tuned as my journey goes on!
+      </p>
     </Layout>
   )
 }

@@ -20,7 +20,7 @@ const AboutPage = () => {
       </p>
       <StaticImage
         alt="Profile"
-        src="./profile.jpeg"
+        src="./profile-about.jpeg"
       />
     </Layout>
   )
