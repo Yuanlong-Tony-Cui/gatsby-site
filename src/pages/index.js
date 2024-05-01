@@ -7,7 +7,7 @@ import Seo from '../components/seo'
 const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
-      <p>Hey, my name is Anthony. Welcome to my blog site.</p>
+      <p>Hi, I'm Anthony. Welcome to my blog site.</p>
       <StaticImage
         alt="Cover"
         src="./profile-home.jpg"
@@ -35,7 +35,7 @@ const IndexPage = () => {
         </li>
       </ul>
       <p>
-        Stay tuned as my journey goes on!
+        Stay tuned as my journey goes on.
       </p>
     </Layout>
   )
