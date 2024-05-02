@@ -6,10 +6,15 @@ import {
   postLinkText,
   postDesc
 } from '../../components/layout.module.css'
+import { StaticImage } from 'gatsby-plugin-image'
 
 const BlogPage = ({ data }) => {
     return (
       <Layout pageTitle="Posts: Career">
+        {/* <StaticImage
+          alt="Career Cover"
+          src="./career-cover.jpg"
+        /> */}
         {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>
