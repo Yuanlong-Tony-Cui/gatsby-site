@@ -18,7 +18,7 @@ const AboutPage = () => {
       </p>
       <StaticImage
         alt="Profile"
-        src="./profile-about.jpeg"
+        src="./profile-about-2.jpeg"
       />
       <br/>
       <p>
