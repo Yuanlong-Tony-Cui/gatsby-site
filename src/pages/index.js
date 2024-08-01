@@ -10,7 +10,7 @@ const IndexPage = () => {
       <p>Hi, I'm Anthony. Welcome to my blog site.</p>
       <StaticImage
         alt="Cover"
-        src="./profile-home-2.jpeg"
+        src="./profile-home.jpeg"
       />
       <p>
         This will be the place where I post
