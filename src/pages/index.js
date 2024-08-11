@@ -8,10 +8,16 @@ const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
       <p>Hi, I'm Anthony. Welcome to my blog site.</p>
-      <StaticImage
-        alt="Cover"
-        src="./profile-home.jpeg"
-      />
+      {/* TODO: Add an image container for all images to define its position */}
+      {/* TODO: Use the attribute 'height' for StaticImage */}
+      <div
+        style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <StaticImage
+          alt="Cover"
+          src="./profile-home.jpeg"
+          height={400}
+        />
+      </div>
       <p>
         This will be the place where I post
         contents that <s>no one will be interested in</s> share about my thoughts on various topics,
