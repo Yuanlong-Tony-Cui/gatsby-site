@@ -16,10 +16,13 @@ const AboutPage = () => {
           blah blah blah
         </s>.
       </p>
-      <StaticImage
-        alt="Profile"
-        src="./profile-about.jpeg"
-      />
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <StaticImage
+          alt="Profile"
+          src="./profile-about.jpeg"
+          height={400}
+        />
+      </div>
       <br/>
       <p>
         If any of my blog posts interest you, please make sure to check out my accounts on other platforms as well:
