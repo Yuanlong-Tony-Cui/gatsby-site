@@ -9,13 +9,14 @@ const IndexPage = () => {
     <Layout pageTitle="Home Page">
       <p>Hi, I'm Anthony. Welcome to my blog site.</p>
       {/* TODO: Add an image container for all images to define its position */}
-      {/* TODO: Use the attribute 'height' for StaticImage */}
+      {/* TODO: Use `imgStyle={{objectFit:'contain'}}` for StaticImage and GatsbyImage */}
       <div
         style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Cover"
-          src="./profile-home.jpeg"
-          height={400}
+          src="./profile-venice_beach.jpeg"
+          imgStyle={{objectFit:'contain'}}
+          style={{maxHeight:'600px'}}
         />
       </div>
       <p>

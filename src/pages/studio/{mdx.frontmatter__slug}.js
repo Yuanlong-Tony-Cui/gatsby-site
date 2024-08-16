@@ -10,10 +10,14 @@ const StudioPost = ({ data, children }) => {
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <p>{data.mdx.frontmatter.date}</p>
-      <GatsbyImage
-        image={image}
-        alt={data.mdx.frontmatter.hero_image_alt}
-      />
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <GatsbyImage
+          image={image}
+          alt={data.mdx.frontmatter.hero_image_alt}
+          imgStyle={{objectFit:'contain'}}
+          style={{maxHeight:'600px'}}
+        />
+      </div>
       <p>
         Photo Credit:{" "}
         <a href={data.mdx.frontmatter.hero_image_credit_link}>
