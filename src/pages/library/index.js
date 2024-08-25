@@ -44,6 +44,6 @@ export const query = graphql`
   }
 `
 
-export const Head = () => <Seo title="Blog Posts" />
+export const Head = () => <Seo title="Blog Posts: Library" />
 
 export default LibraryPage

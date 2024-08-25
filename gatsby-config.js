@@ -18,5 +18,11 @@ module.exports = {
     },
     "gatsby-plugin-mdx",
     "gatsby-transformer-sharp",
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/bayan-studio-logo.webp"
+      }
+    }
   ],
 }
