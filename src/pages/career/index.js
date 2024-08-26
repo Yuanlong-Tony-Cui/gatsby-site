@@ -11,10 +11,13 @@ import { StaticImage } from 'gatsby-plugin-image'
 const BlogPage = ({ data }) => {
     return (
       <Layout pageTitle="Posts: Career">
-        {/* <StaticImage
-          alt="Career Cover"
-          src="./career-cover.jpg"
-        /> */}
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <StaticImage
+            alt="Career Cover"
+            src="./uoft-front-campus.jpeg"
+            height={400}
+          />
+        </div>
         {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>

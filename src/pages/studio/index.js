@@ -14,7 +14,7 @@ const StudioPage = ({ data }) => {
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <StaticImage
             alt="Studio Cover"
-            src="./studio-cover-2.jpeg"
+            src="./guitarist.jpeg"
             height={400}
           />
         </div>
