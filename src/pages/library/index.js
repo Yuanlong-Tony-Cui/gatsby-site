@@ -6,10 +6,18 @@ import {
   postLinkText,
   postDesc
 } from '../../components/layout.module.css'
+import { StaticImage } from 'gatsby-plugin-image'
 
 const LibraryPage = ({ data }) => {
     return (
       <Layout pageTitle="Posts: Library">
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <StaticImage
+            alt="Bridge"
+            src="./bridge-waterloo-park.jpg"
+            height={600}
+          />
+        </div>
         {
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>

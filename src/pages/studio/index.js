@@ -13,9 +13,9 @@ const StudioPage = ({ data }) => {
       <Layout pageTitle="Posts: Studio">
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <StaticImage
-            alt="Studio Cover"
-            src="./guitarist.jpeg"
-            height={400}
+            alt="Keyboard"
+            src="./yamaha-keyboard.jpeg"
+            height={600}
           />
         </div>
         {

@@ -15,7 +15,7 @@ const BlogPage = ({ data }) => {
           <StaticImage
             alt="Career Cover"
             src="./uoft-front-campus.jpeg"
-            height={400}
+            height={600}
           />
         </div>
         {
