@@ -21,24 +21,25 @@ const IndexPage = () => {
       </div>
       <p>
         This will be the place where I post
-        contents that <s>no one will be interested in</s> share about my thoughts on various topics,
+        contents that <s>none of my friends will be interested to read</s> share about my works and thoughts on various topics,
         including but not limited to engineering, literature, art, and personal development.
       </p>
       <ul>
         <li>
-          The Career section includes topics mostly related to my experiences in engineering fields.
-          I'm currently still in the process of migrating and adding posts into this section.
+          The Career section includes topics that are closely related to my career path since my time in Waterloo.
+          From theorical research studies to practical software development, the posts will demonstrate my professional
+          knowledge in a variety of fields to different audiences.
         </li>
         <br/>
         <li>
-          The Library section is comprised of traditional blog posts - most likely in plain text,
-          where I would for example share what books I read and what articles I wrote recently.
+          The Library section is comprised of "traditional" blog posts that can be easily appreciated in the form of plain text.
+          In this section, for example, I would share what books I read and what movies I watched recently.
         </li>
         <br/>
         <li>
           The Studio section is a collection of digital media I have worked on under Bayan Studio.
-          Be it music covers, fan-made videos, and even illustrations - this section would probably
-          reveal the unknown aspects of me that many of my friends wouldn't even know about.
+          Be it music covers, fan-made videos, or even illustrations, this section would
+          reveal some of my side projects that many of my friends wouldn't even know about.
         </li>
       </ul>
       <p>
