@@ -2,6 +2,7 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import Seo from '../components/seo'
 import { StaticImage } from 'gatsby-plugin-image'
+import './layout.css'
 
 const AboutPage = () => {
   return (
@@ -24,11 +25,8 @@ const AboutPage = () => {
       </p>
       <ul>
         <li><a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer">LinkedIn</a></li>
-        <br/>
         <li><a href="https://github.com/Yuanlong-Tony-Cui" target="_blank" rel="noreferrer">GitHub</a></li>
-        <br/>
         <li><a href="https://www.instagram.com/anthony.y.cui/" target="_blank" rel="noreferrer">Instagram</a></li>
-        <br/>
         <li><a href="https://space.bilibili.com/165792944" target="_blank" rel="noreferrer">bilibili</a></li>
       </ul>
     </Layout>

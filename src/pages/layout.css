@@ -1,0 +1,12 @@
+p {
+    line-height: 1.5
+}
+
+li {
+    line-height: 1.5;
+    margin-bottom: 3px;
+}
+
+ul {
+    list-style-type: square;
+}
