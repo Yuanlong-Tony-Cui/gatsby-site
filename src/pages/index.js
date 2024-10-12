@@ -14,7 +14,7 @@ const IndexPage = () => {
         style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Cover"
-          src="./profile-venice_beach.jpeg"
+          src="./profile-scarborough_bluffs_park.jpeg"
           imgStyle={{objectFit:'contain'}}
           style={{maxHeight:'600px'}}
         />
