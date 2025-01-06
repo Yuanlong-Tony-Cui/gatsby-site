@@ -1,0 +1,39 @@
+---
+title: '[Rust] Record Store'
+date: '2025-01-05'
+slug: 'record-store-rust'
+category: 'career'
+hero_image: './oha-for-visit-count.png'
+hero_image_alt: 'Load testing the visit count'
+hero_image_credit_text: 'Anthony Cui'
+---
+
+---
+
+{/* Intro */}
+<p>
+One of Rust's most prominent strengths is its ability to handle concurrent programming safely and efficiently, as mentioned in the article "[Fearless Concurrency](https://doc.rust-lang.org/book/ch16-00-concurrency.html)" by Rust.
+When it comes to the concept of concurrent access (both "read" and "write") in programming, one classic scenario that often comes into my mind is people reading and writing documents that are held in a shared folder 
+- multiple people can read the same document simultaneously, but only one person gets to write to the document at a time.
+</p>
+
+<p>
+One tool that I wanted to build earlier, named the Record Store, is a music library that allow a group of people (e.g. friends, family, or people on a Discord server who share similar musical tastes) to share their favourite music publicly within the group.
+The idea is simple: multiple people can add and/or search for songs in the Record Store, which will be deployed to a tiny home server.
+Most importantly, the Record Store should be able to handle concurrent adding & searching and also be robust to power outage by retaining the latest music library.
+</p>
+
+{/* Technical Highlights */}
+<p>
+To implement the Record Store, a key component needed for concurrency is the [DashMap](https://docs.rs/dashmap/latest/dashmap/struct.DashMap.html) crate in Rust, which is a thread-safe concurrent array/hashmap.
+Different from `RwLock<HashMap>` where the entire map is locked for writes, in `DashMap`, reads are lock-free and writes use fine-grained locking (only a specific portion of the map is locked during writes while other parts remain accessible).
+The use of `DashMap` here will demonstrate its strengths especially when the loads become heavy.
+</p>
+
+<p>
+In my previous projects, Rust was mostly used to build systems programming tools such as [grep Plus](https://github.com/Yuanlong-Tony-Cui/rust-grep-plus) and [cURL Plus](https://github.com/Yuanlong-Tony-Cui/curl-plus).
+This project, however, shows the feasibility of using Rust for application programming, which often needs the high performance that Rust provides.
+Although the need for Rust developers in the current job market is still relatively small, this might change in the near future as the Rust community gets larger and larger.
+</p>
+
+Feel free visit the [GitHub repo](https://github.com/Yuanlong-Tony-Cui/record-store) for the specific use cases. Cheers!
