@@ -16,6 +16,7 @@ const StudioPage = ({ data }) => {
             alt="Keyboard"
             src="./yamaha-keyboard.jpeg"
             height={600}
+            style={{maxHeight:'600px', borderRadius: '10px'}}
           />
         </div>
         {

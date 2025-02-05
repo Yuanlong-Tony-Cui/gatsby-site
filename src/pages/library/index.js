@@ -16,6 +16,7 @@ const LibraryPage = ({ data }) => {
             alt="Bridge"
             src="./bridge-waterloo-park.jpg"
             height={600}
+            style={{maxHeight:'600px', borderRadius: '10px'}}
           />
         </div>
         {

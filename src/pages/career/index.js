@@ -16,6 +16,7 @@ const BlogPage = ({ data }) => {
             alt="Career Cover"
             src="./uoft-front-campus.jpeg"
             height={600}
+            style={{maxHeight:'600px', borderRadius: '10px'}}
           />
         </div>
         {

@@ -16,7 +16,7 @@ const IndexPage = () => {
           alt="Cover"
           src="./profile-scarborough_bluffs_park.jpeg"
           imgStyle={{objectFit:'contain'}}
-          style={{maxHeight:'600px'}}
+          style={{maxHeight:'600px', borderRadius: '10px'}}
         />
       </div>
       <p>

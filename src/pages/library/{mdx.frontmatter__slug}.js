@@ -15,7 +15,7 @@ const LibraryPost = ({ data, children }) => {
           image={image}
           alt={data.mdx.frontmatter.hero_image_alt}
           imgStyle={{objectFit:'contain'}}
-          style={{maxHeight:'600px'}}
+          style={{borderRadius: '10px'}} // style={{maxHeight:'600px', borderRadius: '10px'}}
         />
       </div>
       <p>
