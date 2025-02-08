@@ -7,7 +7,7 @@ import {
     navLinkItem,
     navLinkText,
     siteTitle,
-    fixedBackground,
+    navScrollContainer,
 } from './layout.module.css'
 
 const Layout = ({ pageTitle, children }) => {
@@ -22,10 +22,10 @@ const Layout = ({ pageTitle, children }) => {
   `)
 
   return (
-    <div className={fixedBackground}>
-      <div className={container}>
-        <header className={siteTitle}>{data.site.siteMetadata.title}</header>
-        <nav>
+    <div className={container}>
+      <header className={siteTitle}>{data.site.siteMetadata.title}</header>
+      <nav>
+        <div className={navScrollContainer}>
           <ul className={navLinks}>
             <li className={navLinkItem}>
               <Link to="/" className={navLinkText}>
@@ -53,13 +53,13 @@ const Layout = ({ pageTitle, children }) => {
               </Link>
             </li>
           </ul>
-        </nav>
-        <main>
-          <h1 className={heading}>{pageTitle}</h1>
-          {children}
-          <br/>
-        </main>
-      </div>
+        </div>
+      </nav>
+      <main>
+        <h1 className={heading}>{pageTitle}</h1>
+        {children}
+        <br/>
+      </main>
     </div>
   )
 }
