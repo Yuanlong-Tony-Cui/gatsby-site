@@ -78,7 +78,7 @@
 
 .site-title {
     font-size: 3rem;
-    color: burlywood;
+    color: burlywood; /* Theme colour */
     font-weight: 700;
     margin: 3rem 0;
 }

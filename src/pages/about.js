@@ -5,6 +5,9 @@ import { StaticImage } from 'gatsby-plugin-image'
 import {
   postLinkText
 } from '../components/layout.module.css'
+import {
+  customList
+} from "./home.module.css";
 
 const AboutPage = () => {
   return (
@@ -25,7 +28,7 @@ const AboutPage = () => {
       <p>
         If any of my blog posts interest you, please make sure to check out my accounts on other platforms as well:
       </p>
-      <ul>
+      <ul className={customList}>
         <li><a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer" className={postLinkText}>LinkedIn</a></li>
         <li><a href="https://github.com/Yuanlong-Tony-Cui" target="_blank" rel="noreferrer" className={postLinkText}>GitHub</a></li>
         <li><a href="https://www.instagram.com/anthony.y.cui/" target="_blank" rel="noreferrer" className={postLinkText}>Instagram</a></li>

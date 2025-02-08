@@ -3,6 +3,9 @@ import Layout from '../components/layout'
 import { StaticImage } from 'gatsby-plugin-image'
 import Seo from '../components/seo'
 import './layout.css' // A global import in <index.js>
+import {
+  customList
+} from "./home.module.css";
 
 const IndexPage = () => {
   return (
@@ -24,7 +27,7 @@ const IndexPage = () => {
         contents that <s>none of my friends will be interested to read</s> share about my works and thoughts on various topics,
         including but not limited to engineering, literature, art, and personal development.
       </p>
-      <ul>
+      <ul className={customList}>
         <li>
           The Career section includes topics that are closely related to my career path since my time in Waterloo.
           From theorical research studies to practical software development, the posts will demonstrate my professional
