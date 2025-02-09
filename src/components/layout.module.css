@@ -70,10 +70,16 @@
     color: #111111;
     font-weight: bold;
     transition: color 0.2s;
+    text-decoration: none;
 }
 
 .nav-link-text:hover {
     color: burlywood;
+}
+
+/* ✅ New active class */
+.active-nav-link {
+    color: burlywood !important; /* Changes color for the active page */
 }
 
 .site-title {
@@ -83,9 +89,15 @@
     margin: 3rem 0;
 }
 
+.post-banner {
+    margin: 0;
+}
+
 .post-link-text {
     font-weight: normal;
     transition: color 0.2s;
+    text-decoration: none;
+    font-size: 22px;
 }
 
 .post-link-text:link {
@@ -102,6 +114,8 @@
 
 .post-desc {
     color: darkgray;
+    font-size: 16px;
+    margin: 6px 0 16px 0px;
 }
 
 .fixed-background {
