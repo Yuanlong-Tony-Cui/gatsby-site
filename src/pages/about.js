@@ -6,7 +6,7 @@ import {
   customList,
   heroImage,
   postLinkText
-} from "./home.module.css";
+} from "./main.module.css";
 
 const AboutPage = () => {
   return (
@@ -14,7 +14,7 @@ const AboutPage = () => {
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Profile"
-          src="./profile-golden_gate_bridge.jpeg"
+          src="../images/profile-golden_gate_bridge.jpeg"
           imgStyle={{objectFit:'contain'}}
           className={heroImage}
         />
@@ -25,7 +25,7 @@ const AboutPage = () => {
       <p> 🖥️ At U of T, my focus was using machine learning to solve problems and gain insights in the big data era. No one can deny how significantly AI-powered tools like ChatGPT have changed almost everyone’s life, but it is also crucial to see the Gray Rhinos that we are approaching such as hallucinations. One research project I’ve worked on lately was algorithms that protect users’ privacy in deep learning. </p>
       <p> ⛳️ Always looking forward to writing the next chapter of the story as my journey goes on! </p>
       <p>
-        If any of my blog posts interest you, please make sure to check out my accounts on other platforms as well:
+        If any of my blog posts interest you, please make sure to check out my accounts on other platforms as well.
       </p>
       <ul className={customList}>
         <li><a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer" className={postLinkText}>LinkedIn</a></li>

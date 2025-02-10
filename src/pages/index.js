@@ -6,7 +6,7 @@ import './layout.css' // A global import in <index.js>
 import {
   customList,
   heroImage,
-} from "./home.module.css";
+} from "./main.module.css";
 
 const IndexPage = () => {
   return (
@@ -18,7 +18,7 @@ const IndexPage = () => {
         style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Cover"
-          src="./profile-scarborough_bluffs_park.jpeg"
+          src="../images/profile-scarborough_bluffs_park.jpeg"
           imgStyle={{objectFit:'contain'}}
           className={heroImage}
         />
