@@ -3,11 +3,9 @@ import Layout from '../components/layout'
 import Seo from '../components/seo'
 import { StaticImage } from 'gatsby-plugin-image'
 import {
-  postLinkText
-} from '../components/layout.module.css'
-import {
   customList,
   heroImage,
+  postLinkText
 } from "./home.module.css";
 
 const AboutPage = () => {

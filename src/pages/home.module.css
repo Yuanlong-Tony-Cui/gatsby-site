@@ -23,3 +23,22 @@
     max-height: 600px;
     border-radius: 10px;
 }
+
+.post-link-text {
+    font-weight: normal;
+    transition: color 0.2s;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.post-link-text:link {
+    color: #111111;
+}
+
+.post-link-text:visited {
+    color: #111111;
+}
+
+.post-link-text:hover {
+    color: burlywood;
+}
