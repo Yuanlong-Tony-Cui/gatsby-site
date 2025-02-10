@@ -4,7 +4,8 @@ import { StaticImage } from 'gatsby-plugin-image'
 import Seo from '../components/seo'
 import './layout.css' // A global import in <index.js>
 import {
-  customList
+  customList,
+  heroImage,
 } from "./home.module.css";
 
 const IndexPage = () => {
@@ -19,7 +20,7 @@ const IndexPage = () => {
           alt="Cover"
           src="./profile-scarborough_bluffs_park.jpeg"
           imgStyle={{objectFit:'contain'}}
-          style={{maxHeight:'600px', borderRadius: '10px'}}
+          className={heroImage}
         />
       </div>
       <p>

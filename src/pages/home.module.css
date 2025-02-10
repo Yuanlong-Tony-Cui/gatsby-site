@@ -18,3 +18,8 @@
     content: ""; /* Change to any emoji or icon */
     font-size: 20px;
 }
+
+.hero-image {
+    max-height: 600px;
+    border-radius: 10px;
+}

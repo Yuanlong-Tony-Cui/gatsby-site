@@ -6,7 +6,8 @@ import {
   postLinkText
 } from '../components/layout.module.css'
 import {
-  customList
+  customList,
+  heroImage,
 } from "./home.module.css";
 
 const AboutPage = () => {
@@ -17,7 +18,7 @@ const AboutPage = () => {
           alt="Profile"
           src="./profile-golden_gate_bridge.jpeg"
           imgStyle={{objectFit:'contain'}}
-          style={{maxHeight:'600px', borderRadius: '10px'}}
+          className={heroImage}
         />
       </div>
       <p> 🚀 Hi, my name is Anthony. I see myself as a pragmatic dreamer that uses technology and creation to make this world slightly better. From coding to public speaking, from reading to music performance, I wish what I get to offer to the world could be as much as what it brings me. </p>
