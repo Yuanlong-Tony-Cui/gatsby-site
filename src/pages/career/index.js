@@ -4,7 +4,8 @@ import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 import {
   postLinkText,
-  postDesc
+  postDesc,
+  heroImage,
 } from '../../components/layout.module.css'
 import { StaticImage } from 'gatsby-plugin-image'
 
@@ -15,8 +16,7 @@ const BlogPage = ({ data }) => {
           <StaticImage
             alt="Career Cover"
             src="./uoft-front-campus.jpeg"
-            height={600}
-            style={{maxHeight:'600px', borderRadius: '10px'}}
+            className={heroImage}
           />
         </div>
         {
