@@ -9,7 +9,7 @@ import {
   navLinkText,
   siteTitle,
   navScrollContainer,
-  activeNavLink, // ✅ Import new active class
+  activeNavLink,
 } from "./layout.module.css";
 
 const Layout = ({ pageTitle, children }) => {

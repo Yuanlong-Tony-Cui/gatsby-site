@@ -5,7 +5,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 import {
   customList,
   heroImage,
-  postLinkText
+  socialMediaLink,
 } from "./main.module.css";
 
 const AboutPage = () => {
@@ -28,10 +28,10 @@ const AboutPage = () => {
         If any of my blog posts interest you, please make sure to check out my accounts on other platforms as well.
       </p>
       <ul className={customList}>
-        <li><a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer" className={postLinkText}>LinkedIn</a></li>
-        <li><a href="https://github.com/Yuanlong-Tony-Cui" target="_blank" rel="noreferrer" className={postLinkText}>GitHub</a></li>
-        <li><a href="https://www.instagram.com/anthony.y.cui/" target="_blank" rel="noreferrer" className={postLinkText}>Instagram</a></li>
-        <li><a href="https://space.bilibili.com/165792944" target="_blank" rel="noreferrer" className={postLinkText}>bilibili</a></li>
+        <li><a href="https://www.linkedin.com/in/yuanlong-tony-cui/" target="_blank" rel="noreferrer" className={socialMediaLink}>LinkedIn</a></li>
+        <li><a href="https://github.com/Yuanlong-Tony-Cui" target="_blank" rel="noreferrer" className={socialMediaLink}>GitHub</a></li>
+        <li><a href="https://www.instagram.com/anthony.y.cui/" target="_blank" rel="noreferrer" className={socialMediaLink}>Instagram</a></li>
+        <li><a href="https://space.bilibili.com/165792944" target="_blank" rel="noreferrer" className={socialMediaLink}>bilibili</a></li>
       </ul>
     </Layout>
   )

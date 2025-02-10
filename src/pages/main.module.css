@@ -24,11 +24,30 @@
     border-radius: 10px;
 }
 
-.post-link-text {
+.social-media-link {
     font-weight: normal;
     transition: color 0.2s;
     text-decoration: none;
     font-size: 18px;
+}
+
+.social-media-link:link {
+    color: #111111;
+}
+
+.social-media-link:visited {
+    color: #111111;
+}
+
+.social-media-link:hover {
+    color: burlywood;
+}
+
+.post-link-text {
+    font-weight: normal;
+    transition: color 0.2s;
+    text-decoration: none;
+    font-size: 22px;
 }
 
 .post-link-text:link {
@@ -41,4 +60,10 @@
 
 .post-link-text:hover {
     color: burlywood;
+}
+
+.post-desc {
+    color: darkgray;
+    font-size: 16px;
+    margin: 6px 0 16px 0px;
 }

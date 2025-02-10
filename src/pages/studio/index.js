@@ -6,7 +6,7 @@ import {
   postLinkText,
   postDesc,
   heroImage,
-} from '../../components/layout.module.css'
+} from '../main.module.css'
 import { StaticImage } from 'gatsby-plugin-image'
 
 const StudioPage = ({ data }) => {
