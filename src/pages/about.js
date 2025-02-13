@@ -14,7 +14,7 @@ const AboutPage = () => {
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Profile"
-          src="../images/profile-golden_gate_bridge.jpeg"
+          src="../images/profile-golden_gate_bridge-1.jpeg"
           imgStyle={{objectFit:'contain'}}
           className={heroImage}
         />
