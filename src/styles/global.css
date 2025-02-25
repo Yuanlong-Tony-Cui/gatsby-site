@@ -1,0 +1,7 @@
+/* Change font for all code blocks */
+pre[class*="language-"],
+code[class*="language-"] {
+    font-family: "Fira Code", "JetBrains Mono", "Courier New", monospace; /* Custom font */
+    font-size: 14px; /* Adjust size */
+    line-height: 1.5; /* Improve readability */
+}

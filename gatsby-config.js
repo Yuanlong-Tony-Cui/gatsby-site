@@ -16,13 +16,29 @@ module.exports = {
         path: `${__dirname}/blog`,
       }
     },
-    "gatsby-plugin-mdx",
     "gatsby-transformer-sharp",
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
         "icon": "src/images/bayan-studio-logo.webp"
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-", // ✅ Adds correct class names
+              inlineCodeMarker: null, // ✅ Allows inline code highlighting
+              showLineNumbers: true, // ✅ Enables line numbers
+              noInlineHighlight: false, // ✅ Ensures inline highlighting works
+              aliases: { py: "python" }, // ✅ Ensures Python is recognized correctly
+            },
+          },
+        ],
+      },
+    },
   ],
 }
