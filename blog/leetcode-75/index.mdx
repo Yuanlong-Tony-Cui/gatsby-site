@@ -227,3 +227,222 @@ class Solution:
 
         return len(chars)
 ```
+
+# Two Pointers
+
+## 283. Move Zeroes
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+
+        # Intuition: When using `for i in range(num_ints)` to check for zeros,
+        # `i` will end up reaching to the appended zeros,
+        # so we need to mark the "end" of checking (which moves forward when a zero is removed).
+        # The checking will terminate when we reach the
+
+        i_curr = 0  # marks the int we are checking
+        i_end = len(nums) - 1  # marks the (real-time) end of the list
+        while i_curr <= i_end:
+            if nums[i_curr] == 0:
+                nums.pop(i_curr)
+                nums.append(0)
+                i_end -= 1  # The end moves forward by 1.
+            else:
+                i_curr += 1
+```
+
+## 392. Is Subsequence
+
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        
+        # Intuition: We go through `t`, and whenever we see a char also appearing in `s`,
+        # we cross that char out in `s` (metaphorically)
+        # and go on and compare the rest of chars in `t` with the next char in `s`.
+
+        if not s:
+            return True  # "" is treated as a subsequence of any strings.
+
+        i_s = 0
+        for i_t in range(len(t)):
+            if t[i_t] == s[i_s]:
+                i_s += 1  # we move on to check the rest of chars in `t` with the next char in `s`
+            if i_s >= len(s):
+                return True  # we've seen all chars in `s`
+
+        return False
+```
+
+## 11. Container With Most Water
+
+```python
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+
+        # Intuition: We set a left border and a right border.
+        # By adjusting the left and right wall, we could control the volumn formed.
+        # The volumn is also determined by the shorter one of the left & right walls.
+
+        # We start from the left-most wall and right-most wall to get the largest width,
+        # and we constantly adjust the shorter wall,
+        # expecting that though the width is getting smaller,
+        # we would meet a taller wall that gives us a larger volumn.
+
+        i_left = 0
+        i_right = len(height) - 1
+        max_area = 0
+
+        while i_left < i_right:
+            curr_area = min(height[i_left], height[i_right]) * (i_right - i_left)
+            max_area = max(max_area, curr_area)  # update
+
+            # Shrink width:
+            if height[i_left] < height[i_right]:
+                i_left += 1
+            else:
+                i_right -= 1
+
+        return max_area
+```
+
+## 1679. Max Number of K-Sum Pairs
+
+```python
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+
+        # Intuition: This looks similar to the Two Sum problem.
+        # We could use Counter() to build a frequency map.
+
+        # freq = {}
+        # for num in nums:
+        #     freq[num] = freq.get(num, 0) + 1
+        freq = Counter(nums)
+
+        operations = 0
+        for num in nums:
+            complement = k - num
+            if freq[num] > 0 and freq[complement] > 0:
+                # Skip if there's only one occurrence of itself:
+                if num == complement and freq[num] <= 1:
+                    continue
+                # Do a removal operation:
+                operations += 1
+                freq[num] -= 1
+                freq[complement] -= 1
+
+        return operations
+```
+
+# Sliding Window
+
+## 643. Maximum Average Subarray I
+
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        # max_avg = sum(nums[0:k])/k
+        # for i in range(len(nums)- k + 1):
+        #     avg = sum(nums[i:i+k])/k
+        #     max_avg = max(avg, max_avg)
+        # return max_avg
+
+        # Reflection: computing `sum(nums[i:i+k])/k` consumes too much CPU for each new i.
+
+        curr_sum = max_sum = sum(nums[0:k])
+        for i in range(k, len(nums)):
+            curr_sum = curr_sum + nums[i] - nums[i-k]
+            max_sum = max(curr_sum, max_sum)
+        return (max_sum / k)  # computes the avg only at the end
+```
+
+## 1456. Maximum Number of Vowels in a Substring of Given Length
+
+```python
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        # Intuition: Use a sliding window of length k.
+        # Use set for faster lookups.
+
+        vowels = {'a', 'e', 'i', 'o', 'u'}  # Set of vowels for fast lookup
+        curr_num_vowels = 0
+
+        # Initial count:
+        for i in range(k):
+            if s[i] in vowels:
+                curr_num_vowels += 1
+        max_num_vowels = curr_num_vowels
+        
+        # Move the sliding window:
+        for i in range(1, len(s) - k + 1):
+            if s[i-1] in vowels:
+                curr_num_vowels -= 1  # removed from the window
+            if s[i+k-1] in vowels:
+                curr_num_vowels += 1  # added into the window
+            max_num_vowels = max(max_num_vowels, curr_num_vowels)
+        
+        return max_num_vowels
+```
+
+## 1004. Max Consecutive Ones III
+
+```python
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        # Intuition:
+        # We create a sliding window where there are k 0's.
+
+        left = 0
+        max_length = 0
+        zero_count = 0
+        
+        # Move the right bound of sliding window:
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zero_count += 1
+            
+            # If there are more than k zeros, shrink the window from the left
+            while zero_count > k:
+                if nums[left] == 0:
+                    zero_count -= 1
+                left += 1  # Move left pointer to the right
+            
+            # Update:
+            max_length = max(max_length, right - left + 1)
+        
+        return max_length
+```
+
+## 1493. Longest Subarray of 1's After Deleting One Element
+
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+
+        # Intuition:
+        # We specify the longest subarray using a `left` and a `right` pointer.
+        # NOTE: To make the algorithm cleaner, we use a for loop to automate the incrementations of `right` and adjust `left` separately.
+
+        left = 0
+        max_len = 0
+        zero_count = 0
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zero_count += 1
+
+            # Once zero_count reaches 2,
+            # we shrink the window to remove the previous zero:
+            while zero_count > 1:
+                if nums[left] == 0:
+                    zero_count -= 1
+                left += 1
+
+            max_len = max(max_len, right - left)
+
+        return max_len
+```
