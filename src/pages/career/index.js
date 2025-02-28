@@ -19,7 +19,7 @@ const BlogPage = ({ data }) => {
             className={heroImage}
           />
         </div>
-        {
+        { // Loop through the data and display the blog posts:
           data.allMdx.nodes.map((node) => (
             <article key={node.id}>
               <h2>

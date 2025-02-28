@@ -1,0 +1,491 @@
+---
+title: '[Algorithms] Cracking LeetCode 75 (Part 2)'
+date: '2025-02-28'
+slug: 'leetcode-75-2'
+category: 'career'
+hero_image: './leetcode-75-cover.webp'
+hero_image_alt: 'Cover'
+hero_image_credit_text: 'DALL·E'
+---
+
+---
+
+This blog post aims to walk through classic coding problems listed in [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/).
+
+All solutions are written in Python and are optimized for performance and readability.
+
+# Linked List
+
+## 2095. Delete the Middle Node of a Linked List
+
+```python
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        # Intuition:
+        # We use a pointer to go through the linked list while using another pointer
+        # that keeps track of the middle node between the head and current node.
+
+        # Edge case: if the list has only one node, return None
+        if not head.next:
+            return None
+        
+        slow, fast = head, head
+        pre_slow = None  # the previous node before `slow``
+        
+        # Use two-pointer technique to find the middle
+        while fast and fast.next:  # ensures `fast.next.next` is safe to perform
+            pre_slow = slow
+            slow = slow.next
+            fast = fast.next.next
+        
+        # Delete middle node:
+        pre_slow.next = slow.next
+        # In Python, `slow.next = None` is optional.
+
+        # NOTE: In C++, we will have to do:
+        # prev->next = curr->next;
+        # curr->next = nullptr;  // optional. prevents accessing deleted memory.
+        # delete curr;  # required. prevents memory leaks.
+        
+        return head
+```
+
+## 328. Odd Even Linked List
+
+```python
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        # Intuition: As we go through the linked list, we modify the node such that
+        # odd nodes and even nodes are linked separately.
+
+        if not head:
+            return None
+        
+        number = 1
+        curr = head
+        prev_odd, prev_even = None, None
+        even_head = None
+        while curr:
+
+            # Link odd nodes and even nodes separately:
+            if number % 2 == 1:
+                if prev_odd:
+                    prev_odd.next = curr
+                prev_odd = curr
+            else:
+                # Store the 1st even node:
+                if number == 2:
+                    even_head = curr
+                if prev_even:
+                    prev_even.next = curr
+                prev_even = curr
+
+            # Update:
+            curr = curr.next
+            number += 1
+        
+        # Append even nodes after all odd nodes:
+        prev_odd.next = even_head
+
+        # NOTE: We should make the latest even node (if any) point to None,
+        # or the autotester will stuck in a loop:
+        if prev_even:
+            prev_even.next = None
+
+        return head
+```
+
+## 206. Reverse Linked List
+
+```python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        # Intuition:
+        # 1 -> 2 -> 3 -> 4
+        # 1 <- 2 -> 3 -> 4
+
+        # base case (turns out to be handled by the code below):
+        # if not head:
+        #     return None
+        
+        curr_node = head
+        prev_node = None
+        while curr_node:
+            next_node = curr_node.next  # "store"
+            curr_node.next = prev_node  # "reverse"
+            # update:
+            prev_node = curr_node
+            curr_node = next_node
+
+        return prev_node  # when we exit the while loop, curr_node will be None.
+```
+
+## 2130. Maximum Twin Sum of a Linked List
+
+```python
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        
+        # Intuition:
+        # Since this is a linked list, not an array,
+        # it is critical to identify all pairs of twins _as_ we traverse through the linked list.
+
+        # Step 1: Find the middle node
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        # `fast` is now at None at the very end of the linked list;
+        # `slow` is now at the first node of the second half of the linked list.
+        
+        # Step 2: Reverse the second half starting from the middle node
+        prev, curr = None, slow
+        while curr:
+            temp = curr.next  # store
+            curr.next = prev  # swap
+            prev = curr  # step
+            curr = temp  # step
+        # `prev` now points to the last node.
+
+        # Step 3: Find the max twin sum
+        max_sum = 0
+        first, second = head, prev
+        while second:
+            max_sum = max(first.val + second.val, max_sum)  # update
+            first = first.next
+            second = second.next
+        # `second` stops moving at Node (n/2 + 1) since its `next` points to None.
+
+        return max_sum
+```
+
+# Binary Tree - DFS
+
+## Maximum Depth of Binary Tree
+
+```python
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+
+        # Intuition:
+        # We run DFS to compute the depth by recursively calling maxDepth() on left & rigth subtrees.
+
+        # Base case (we've reached the end nodes):
+        if not root:
+            return 0
+
+        return max(
+            self.maxDepth(root.left), self.maxDepth(root.right)
+        ) + 1
+```
+
+## 872. Leaf-Similar Trees
+
+```python
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+
+        # Intuition: Use pre-order DFS to find the leaf nodes.
+
+        def dfs(node, seq):
+            if not node:
+                return
+            if not node.left and not node.right:
+                seq.append(node.val)
+            dfs(node.left, seq)
+            dfs(node.right, seq)
+
+        seq1 = []
+        seq2 = []
+        dfs(root1, seq1)
+        dfs(root2, seq2)
+
+        return seq1 == seq2
+```
+
+## 1448. Count Good Nodes in Binary Tree
+
+```python
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        # Intuition:
+        # As we traverse the BST, store the max value seen so far,
+        # and carry it in our recursive calls.
+
+        good_nodes = []  # allows multiple writes at a time
+
+        def isGoodNode(node: TreeNode, max_val: int):
+            if not node:
+                return False
+            if node.val >= max_val:
+                good_nodes.append(1)
+                max_val = node.val
+            isGoodNode(node.left, max_val)
+            isGoodNode(node.right, max_val)
+        
+        isGoodNode(root, root.val)  # recursive calls inside
+
+        return sum(good_nodes)
+```
+
+## 1448. Count Good Nodes in Binary Tree
+
+```python
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        # Intuition:
+        # As we traverse the BST, store the max value seen so far,
+        # and carry it in our recursive calls.
+
+        good_nodes = []  # allows multiple writes at a time
+
+        def isGoodNode(node: TreeNode, max_val: int):
+            if not node:
+                return False
+            if node.val >= max_val:
+                good_nodes.append(1)
+                max_val = node.val
+            isGoodNode(node.left, max_val)
+            isGoodNode(node.right, max_val)
+        
+        isGoodNode(root, root.val)  # recursive calls inside
+
+        return sum(good_nodes)
+```
+
+## 437. Path Sum III
+
+```python
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+
+        # TODO
+
+        # Helper function: DFS that carries the current sum
+        def dfs(node, current_sum):
+            if not node:
+                return 0
+
+            current_sum += node.val
+
+            num_paths = prefix_sums.get(current_sum - targetSum, 0)
+
+            prefix_sums[current_sum] = prefix_sums.get(current_sum, 0) + 1  # update
+
+            # Recursive call on `left` and `right`:
+            num_paths += dfs(node.left, current_sum)
+            num_paths += dfs(node.right, current_sum)
+
+            # Remove the current sum from the prefix sums when backtracking:
+            prefix_sums[current_sum] -= 1
+
+            return num_paths
+
+        prefix_sums = {0: 1}  # Base case: A sum of zero is seen once
+
+        return dfs(root, 0)
+```
+
+## 1372. Longest ZigZag Path in a Binary Tree
+
+```python
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+
+        # Intuition: Use DFS to recursively update the lengths of ZigZag paths.
+
+        # `direction`: starting at the given `node`, where to go next
+        def dfs(node, direction, length):
+            if not node:
+                return
+            
+            nonlocal max_length  # "pass by reference" for integers in Python
+            max_length = max(max_length, length)
+            
+            if direction == "left":
+                dfs(node.left, "right", length + 1)
+                dfs(node.right, "left", 1)  # length reset to 1 since we are told to go "left" next but actually go "right" instead
+            else:
+                dfs(node.right, "left", length + 1)
+                dfs(node.left, "right", 1)  # length reset to 1
+    
+        max_length = 0
+        dfs(root.left, "right", 1)  # starts at `root.left`; should go right next; has a length of 1 from `root` to `root.left`
+        dfs(root.right, "left", 1)
+        return max_length
+```
+
+## 236. Lowest Common Ancestor of a Binary Tree
+
+```python
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        
+        # Intuition:
+        # By observation, we are able to identify the LCA of p and q only if:
+        #   1) p and q are separately located in the left or right subtrees of a node
+        #   2) p is an ancestor of q (or the other way around)
+
+        # Base case 1: we've reached a leaf node
+        if not root:  
+            return None
+
+        # Base case 2: Case 2, Intuition
+        if root == p or root == q:  
+            return root
+        
+        # Recursive calls:
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+        # Base case 3: Case 1, Intuition
+        if left and right:
+            return root
+
+        # Base case 4: we keep searching in the left/right subtree
+        return left if left else right
+```
+
+# Binary Tree - BFS
+
+## 199. Binary Tree Right Side View
+
+```python
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+
+        # Intuition: The solution will be very similar to
+        # [102. Binary Tree Level Order Traversal],
+        # except that we only need to store the right-most node at each level.
+
+        # Base case handling:
+        if not root:
+            return []
+
+        queue = deque([root])
+        result = []
+        
+        while queue:
+            num_nodes = len(queue)  # takes a snapshot of the queue size
+            # node_values = []  # all nodes at current level
+            right_most_val = None
+
+            # Pop until the original queue becomes empty:
+            for _ in range(num_nodes):
+                # 1. Visit:
+                node = queue.popleft()  # breadth-first visiting
+                # node_values.append(node.val)
+                right_most_val = node.val
+                # 2. Expand:
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            # Store the right-most node at this level:
+            # result.append(node_values[-1])
+            result.append(right_most_val)
+
+        return result
+```
+
+## 1161. Maximum Level Sum of a Binary Tree
+
+```python
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+
+        # Intuition:
+        # Since we need the sums of nodes _by level_, we run BFS using a FIFO queue (`deque`).
+
+        queue = deque([root])
+        max_sum = float('-inf')
+        min_level = 1
+
+        level = 1
+        while queue:
+            # Compute the level sum:
+            level_sum = sum(node.val for node in queue)
+            if level_sum > max_sum:
+                max_sum = level_sum
+                min_level = level
+
+            # Get nodes of the next level:
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            level += 1
+
+        return min_level
+```
+
+# Binary Search Tree
+
+## 700. Search in a Binary Search Tree
+
+```python
+class Solution:
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        # Handle recursive calls on None:
+        if not root:
+            return None
+
+        if val == root.val:
+            return root  # base case
+        elif val < root.val:
+            return self.searchBST(root.left, val)  # search in the left subtree
+        else:
+            return self.searchBST(root.right, val)  # search in the right subtree
+```
+
+## 450. Delete Node in a BST
+
+```python
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+
+        # Intuition:
+        # Finding the node is easy, but when deleting it (if it has child nodes), we have to make sure the properties of BST still hold.
+
+        if not root:
+            return None
+
+        # Search and delete:
+        if key < root.val:  # search in the left subtree
+            root.left = self.deleteNode(root.left, key)
+        elif key > root.val:  # search in the right subtree
+            root.right = self.deleteNode(root.right, key)
+        else:  # delete the current node:
+
+            # Case 1: No child or one child
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+
+            # Case 2: The node has two children.
+
+            # To maintain a BST, we should replace this node with the smallest in its right subtree.
+            # Alternatively, we could also replace this node with the largest in its left subtree.
+
+            smallest_right = self.getMin(root.right)
+            root.val = smallest_right.val
+            root.right = self.deleteNode(root.right, smallest_right.val)
+            # We delete that smallest node in the right subtree by using a deleteNode() call.
+        
+        return root
+
+    # getMin() returns the smallest node in a given BST
+    def getMin(self, node: TreeNode) -> TreeNode:
+        while node.left:
+            node = node.left
+        return node
+```
