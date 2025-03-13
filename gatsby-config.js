@@ -9,11 +9,25 @@ module.exports = {
   plugins: [
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
-    { // Create `File` nodes from files under `blog`:
+    {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: `blog`,
-        path: `${__dirname}/blog`,
+        name: `career`,
+        path: `${__dirname}/blog/career`,
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: `library`,
+        path: `${__dirname}/blog/library`,
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: `studio`,
+        path: `${__dirname}/blog/studio`,
       }
     },
     "gatsby-transformer-sharp",
