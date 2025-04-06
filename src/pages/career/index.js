@@ -21,7 +21,7 @@ const BlogPage = ({ data }) => {
           className={heroImage}
         />
       </div>
-      { // Loop through the data and display the blog posts:
+      {
         data.allMdx.nodes.map((node) => {
           const tags = node.frontmatter.tags?.split(",").map(item => item.trim());
           return (

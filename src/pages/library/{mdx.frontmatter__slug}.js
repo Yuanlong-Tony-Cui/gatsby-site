@@ -24,7 +24,9 @@ const LibraryPost = ({ data, children }) => {
           {data.mdx.frontmatter.hero_image_credit_text}
         </a>
       </p>
-      {children}
+      <article className='paragraph'>
+        {children}
+      </article>
     </Layout>
   )
 }
