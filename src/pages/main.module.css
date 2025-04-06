@@ -67,3 +67,18 @@
     font-size: 16px;
     margin: 6px 0 16px 0px;
 }
+
+.tag-bar {
+    display: flex;
+    gap: 5px;
+}
+
+.tag-pill {
+    font-size: 14px;
+    color: DimGray;
+    background-color: WhiteSmoke;
+    height: 15px;
+    border-radius: 5px;
+    padding: 3px 8px;
+    cursor: pointer;
+}

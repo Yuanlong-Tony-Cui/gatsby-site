@@ -16,19 +16,19 @@
     flex-wrap: wrap;
     gap: 20px;
     padding: 0; /* removes default styles for <ul> */
-    justify-content: left; /* Aligns items to the left */
-    list-style: none; /* Removes the dots */
+    justify-content: left; /* aligns items to the left */
+    list-style: none; /* removes the dots */
 }
 
 @media (min-width: 768px) {
     .navLinks {
-        gap: 40px; /* More space between tabs on tablets */
+        gap: 40px;
     }
 }
 
 @media (min-width: 1024px) {
     .navLinks {
-        gap: 60px; /* Even more space between tabs on desktops */
+        gap: 60px;
     }
 }
 
