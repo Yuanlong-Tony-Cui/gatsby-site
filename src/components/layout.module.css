@@ -3,15 +3,14 @@
     max-width: 800px;
     font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; /* used by Medium */
     position: relative;
-    padding: 0 0.5rem; /* Leaves some inner space */
-    overflow-x: hidden; /* Hides horizontal overflow */
+    padding: 0 0.5rem;
+    overflow-x: hidden; /* hides horizontal overflow */
 }
 
 .heading {
     color: burlywood;
 }
 
-/* Default mobile view: items in a row, scrollable */
 .navLinks {
     display: flex;
     flex-wrap: wrap;
@@ -21,7 +20,6 @@
     list-style: none; /* Removes the dots */
 }
 
-/* 🌟 Increase spacing for larger screens */
 @media (min-width: 768px) {
     .navLinks {
         gap: 40px; /* More space between tabs on tablets */
@@ -34,9 +32,8 @@
     }
 }
 
-/* Individual list items */
 .navLinkItem {
-    flex: 0 0 auto; /* Prevents items from shrinking */
+    border-bottom: 2px solid burlywood;
 }
 
 .nav-link-text {
@@ -50,41 +47,15 @@
     color: burlywood;
 }
 
-/* ✅ New active class */
 .active-nav-link {
-    color: burlywood !important; /* Changes color for the active page */
+    color: burlywood; /* changes color for the active page */
 }
 
 .site-title {
     font-size: 3rem;
-    color: burlywood; /* Theme colour */
+    color: burlywood; /* theme colour */
     font-weight: 700;
     margin: 3rem 0;
-}
-
-.fixed-background {
-    background-image: url('./shan-hai-background.jpg'); /* Replace with your image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Keeps background fixed */
-    position: absolute; /* Ensures content is scrollable */
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh; /* Prevents cutting off content */
-    z-index: -1; /* Moves background behind content */
-}
-
-/* Overlay to make the background lighter */
-fixed-background::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3); /* Adjusts opacity */
-    z-index: -1;
 }
 
 .hero-image {

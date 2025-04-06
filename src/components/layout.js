@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import { useLocation } from "@reach/router"; // ✅ Import location hook
+import { useLocation } from "@reach/router";
 import {
   container,
   heading,
@@ -22,14 +22,14 @@ const Layout = ({ pageTitle, children }) => {
     }
   `)
 
-  const location = useLocation(); // ✅ Get current path
+  const location = useLocation();
 
   return (
     <div className={container}>
       <header className={siteTitle}>{data.site.siteMetadata.title}</header>
       <nav>
         <ul className={navLinks}>
-          <li className={navLinkItem}>
+          <li className={`${location.pathname === "/" ? navLinkItem : ""}`}>
             <Link
               to="/"
               className={`${navLinkText} ${location.pathname === "/" ? activeNavLink : ""}`}
@@ -37,7 +37,7 @@ const Layout = ({ pageTitle, children }) => {
               Home
             </Link>
           </li>
-          <li className={navLinkItem}>
+          <li className={`${location.pathname === "/about/" ? navLinkItem : ""}`}>
             <Link
               to="/about"
               className={`${navLinkText} ${location.pathname === "/about/" ? activeNavLink : ""}`}
@@ -45,7 +45,7 @@ const Layout = ({ pageTitle, children }) => {
               About
             </Link>
           </li>
-          <li className={navLinkItem}>
+          <li className={`${location.pathname.startsWith("/career/") ? navLinkItem : ""}`}>
             <Link
               to="/career"
               className={`${navLinkText} ${location.pathname.startsWith("/career/") ? activeNavLink : ""}`}
@@ -54,7 +54,7 @@ const Layout = ({ pageTitle, children }) => {
               Career
             </Link>
           </li>
-          <li className={navLinkItem}>
+          <li className={`${location.pathname.startsWith("/library/") ? navLinkItem : ""}`}>
             <Link
               to="/library"
               className={`${navLinkText} ${location.pathname.startsWith("/library/") ? activeNavLink : ""}`}
@@ -62,7 +62,7 @@ const Layout = ({ pageTitle, children }) => {
               Library
             </Link>
           </li>
-          <li className={navLinkItem}>
+          <li className={`${location.pathname.startsWith("/studio/") ? navLinkItem : ""}`}>
             <Link
               to="/studio"
               className={`${navLinkText} ${location.pathname.startsWith("/studio/") ? activeNavLink : ""}`}
