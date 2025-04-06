@@ -11,24 +11,10 @@
     color: burlywood;
 }
 
-/* Default: Mobile-first design - scrollable list */
-.navScrollContainer {
-    overflow-x: auto; /* Enables horizontal scrolling */
-    white-space: nowrap; /* Prevents text from wrapping */
-    width: 100%;
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-}
-
-/* Hides scrollbar in Chrome, Safari */
-.navScrollContainer::-webkit-scrollbar {
-    display: none;
-}
-
 /* Default mobile view: items in a row, scrollable */
 .navLinks {
     display: flex;
-    flex-wrap: nowrap; /* Prevents wrapping */
+    flex-wrap: wrap;
     gap: 20px;
     padding: 0; /* removes default styles for <ul> */
     justify-content: left; /* Aligns items to the left */
@@ -52,19 +38,6 @@
 .navLinkItem {
     flex: 0 0 auto; /* Prevents items from shrinking */
 }
-
-/* 🌟 Desktop view: Show full navigation bar */
-@media (min-width: 768px) {
-    .navScrollContainer {
-        overflow-x: visible; /* Removes scrolling on desktop */
-        white-space: normal; /* Allows wrapping if necessary */
-    }
-
-    .navLinks {
-        justify-content: left; /* Centers nav items */
-        flex-wrap: wrap; /* Allows wrapping if too many items */
-    }
-}  
 
 .nav-link-text {
     color: #111111;
