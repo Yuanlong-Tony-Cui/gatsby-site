@@ -7,7 +7,10 @@
   Gatsby Minimal Starter
 </h1>
 
-## 🚀 Quick start
+## Website
+Link: [yuanlong-anthony-cui.netlify.app/](https://yuanlong-anthony-cui.netlify.app/career/)
+
+<!-- ## 🚀 Quick start
 
 1.  **Create a Gatsby site.**
 
@@ -46,4 +49,4 @@
 
 Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal) -->
