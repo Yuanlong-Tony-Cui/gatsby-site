@@ -43,6 +43,30 @@
     color: burlywood;
 }
 
+.post-list-sec {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* stretches elements to have same width */
+    --gap-posts: 20px;
+    gap: var(--gap-posts);
+    margin: var(--gap-posts) 0;
+}
+
+.post-tile {
+    margin: 0 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px #E8E8E8;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out; 
+}
+
+.post-tile:hover {
+    transform: scale(1.02);
+}
+
 .post-link-text {
     font-weight: normal;
     transition: color 0.2s;
@@ -65,7 +89,6 @@
 .post-desc {
     color: darkgray;
     font-size: 16px;
-    margin: 6px 0 16px 0px;
 }
 
 .tag-bar {

@@ -3,6 +3,8 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 import {
+  postListSec,
+  postTile,
   postLinkText,
   postDesc,
   heroImage,
@@ -21,27 +23,29 @@ const BlogPage = ({ data }) => {
           className={heroImage}
         />
       </div>
-      {
-        data.allMdx.nodes.map((node) => {
-          const tags = node.frontmatter.tags?.split(",").map(item => item.trim());
-          return (
-            <article key={node.id}>
-              <h2>
-                <Link to={`/career/${node.frontmatter.slug}`} className={postLinkText}>
-                  {node.frontmatter.title}
-                </Link>
-              </h2>
-              <p className={postDesc}>{node.frontmatter.date}</p>
-              <div className={tagBar}>
-                { tags && tags.map(tag => (
-                    <div className={tagPill}>{tag}</div>
-                  ))
-                }
+      <div className={postListSec}>
+        {
+          data.allMdx.nodes.map((node, idx) => {
+            const tags = node.frontmatter.tags?.split(",").map(item => item.trim());
+            return (
+              <div key={node.id} className={postTile}>
+                <div>
+                  <Link to={`/career/${node.frontmatter.slug}`} className={postLinkText}>
+                    {node.frontmatter.title}
+                  </Link>
+                </div>
+                <span className={postDesc}>{node.frontmatter.date}</span>
+                <div className={tagBar}>
+                  { tags && tags.map((tag, idx) => (
+                      <div key={idx} className={tagPill}>{tag}</div>
+                    ))
+                  }
+                </div>
               </div>
-            </article>
-          )
-        })
-      }
+            )
+          })
+        }
+      </div>
     </Layout>
   )
 }
