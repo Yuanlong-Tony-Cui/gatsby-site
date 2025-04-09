@@ -22,7 +22,6 @@
 .hero-image {
     max-height: 600px;
     border-radius: 10px;
-    margin: 0 10px;
 }
 
 .social-media-link {
@@ -54,7 +53,6 @@
 }
 
 .post-tile {
-    margin: 0 10px;
     padding: 20px;
     box-shadow: 0 0 15px #E8E8E8;
     border-radius: 5px;
@@ -65,7 +63,7 @@
 }
 
 .post-tile:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 .post-link-text {

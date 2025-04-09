@@ -3,7 +3,7 @@
     max-width: 800px;
     font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; /* used by Medium */
     position: relative;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     overflow-x: hidden; /* hides horizontal overflow */
 }
 
