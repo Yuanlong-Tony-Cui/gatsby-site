@@ -3,36 +3,51 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 import {
+  postListSec,
+  postTile,
   postLinkText,
   postDesc,
   heroImage,
+  tagBar,
+  tagPill,
 } from '../main.module.css'
 import { StaticImage } from 'gatsby-plugin-image'
 
 const LibraryPage = ({ data }) => {
-    return (
-      <Layout pageTitle="Posts: Library">
-        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <StaticImage
-            alt="Bridge"
-            src="./bridge-waterloo-park.jpg"
-            className={heroImage}
-          />
-        </div>
+  return (
+    <Layout pageTitle="Posts: Library">
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <StaticImage
+          alt="Bridge"
+          src="./bridge-waterloo-park.jpg"
+          className={heroImage}
+        />
+      </div>
+      <div className={postListSec}>
         {
-          data.allMdx.nodes.map((node) => (
-            <article key={node.id}>
-              <h2>
-                <Link to={`/library/${node.frontmatter.slug}`} className={postLinkText}>
-                  {node.frontmatter.title}
-                </Link>
-              </h2>
-              <p className={postDesc}>{node.frontmatter.date}</p>
-            </article>
-          ))
+          data.allMdx.nodes.map((node, idx) => {
+            const tags = node.frontmatter.tags?.split(",").map(item => item.trim());
+            return (
+              <div key={node.id} className={postTile}>
+                <div>
+                  <Link to={`/library/${node.frontmatter.slug}`} className={postLinkText}>
+                    {node.frontmatter.title}
+                  </Link>
+                </div>
+                <span className={postDesc}>{node.frontmatter.date}</span>
+                <div className={tagBar}>
+                  { tags && tags.map((tag, idx) => (
+                      <div key={idx} className={tagPill}>{tag}</div>
+                    ))
+                  }
+                </div>
+              </div>
+            )
+          })
         }
-      </Layout>
-    )
+      </div>
+    </Layout>
+  )
 }
 
 export const query = graphql`
@@ -46,6 +61,7 @@ export const query = graphql`
           date(formatString: "MMMM D, YYYY")
           title
           slug
+          tags
         }
         id
       }
