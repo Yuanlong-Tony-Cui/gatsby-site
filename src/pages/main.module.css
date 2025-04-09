@@ -22,6 +22,7 @@
 .hero-image {
     max-height: 600px;
     border-radius: 10px;
+    margin: 0 10px;
 }
 
 .social-media-link {
