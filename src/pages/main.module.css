@@ -15,7 +15,7 @@
 }
   
 .custom-list li::before {
-    content: ""; /* Change to any emoji or icon */
+    content: ""; /* could be changed to any emoji */
     font-size: 20px;
 }
 

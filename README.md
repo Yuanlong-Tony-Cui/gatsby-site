@@ -1,14 +1,21 @@
 <p align="center">
   <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+    <img alt="Bayan Studio" src="./src/images/bayan-studio-logo.webp" width="200" />
   </a>
 </p>
 <h1 align="center">
-  Gatsby Minimal Starter
+  Anthony's Blog Site
 </h1>
 
-## Website
-Link: [yuanlong-anthony-cui.netlify.app/](https://yuanlong-anthony-cui.netlify.app/career/)
+## Introduction
+This project is the implementation of my personal blog where I post contents such as the software I built and other forms of works I completed.
+
+This blog site is put live and regularly updated at [yuanlong-anthony-cui.netlify.app/](https://yuanlong-anthony-cui.netlify.app/career/).
+
+## Technical Highlights
+* Gatsby
+* React
+* GraphQL
 
 <!-- ## 🚀 Quick start
 
