@@ -5,7 +5,8 @@ import {
   container,
   heading,
   navLinks,
-  navLinkItem,
+  navLinkTab,
+  underscore,
   navLinkText,
   siteTitle,
   activeNavLink,
@@ -29,46 +30,50 @@ const Layout = ({ pageTitle, children }) => {
       <header className={siteTitle}>{data.site.siteMetadata.title}</header>
       <nav>
         <ul className={navLinks}>
-          <li className={`${location.pathname === "/" ? navLinkItem : ""}`}>
+          <li className={navLinkTab}>
             <Link
               to="/"
               className={`${navLinkText} ${location.pathname === "/" ? activeNavLink : ""}`}
             >
               Home
             </Link>
+            <div className={`${location.pathname === "/" ? underscore : ""}`}></div>
           </li>
-          <li className={`${location.pathname === "/about/" ? navLinkItem : ""}`}>
+          <li className={navLinkTab}>
             <Link
               to="/about"
               className={`${navLinkText} ${location.pathname === "/about/" ? activeNavLink : ""}`}
             >
               About
             </Link>
+            <div className={`${location.pathname === "/about/" ? underscore : ""}`}></div>
           </li>
-          <li className={`${location.pathname.startsWith("/career/") ? navLinkItem : ""}`}>
+          <li className={navLinkTab}>
             <Link
               to="/career"
               className={`${navLinkText} ${location.pathname.startsWith("/career/") ? activeNavLink : ""}`}
             >
-            {/* `.startsWith("/career")` ensures that subpages (e.g. /career/post-1) are also highlighted  */}
               Career
             </Link>
+            <div className={`${location.pathname.startsWith("/career/") ? underscore : ""}`}></div>
           </li>
-          <li className={`${location.pathname.startsWith("/library/") ? navLinkItem : ""}`}>
+          <li className={navLinkTab}>
             <Link
               to="/library"
               className={`${navLinkText} ${location.pathname.startsWith("/library/") ? activeNavLink : ""}`}
             >
               Library
             </Link>
+            <div className={`${location.pathname.startsWith("/library/") ? underscore : ""}`}></div>
           </li>
-          <li className={`${location.pathname.startsWith("/studio/") ? navLinkItem : ""}`}>
+          <li className={navLinkTab}>
             <Link
               to="/studio"
               className={`${navLinkText} ${location.pathname.startsWith("/studio/") ? activeNavLink : ""}`}
             >
               Studio
             </Link>
+            <div className={`${location.pathname.startsWith("/studio/") ? underscore : ""}`}></div>
           </li>
         </ul>
       </nav>

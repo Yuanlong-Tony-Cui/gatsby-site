@@ -11,7 +11,7 @@
     color: burlywood;
 }
 
-.navLinks {
+.nav-links {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -21,25 +21,26 @@
 }
 
 @media (min-width: 768px) {
-    .navLinks {
+    .nav-links {
         gap: 40px;
     }
 }
 
 @media (min-width: 1024px) {
-    .navLinks {
+    .nav-links {
         gap: 60px;
     }
 }
 
-.navLinkItem {
-    border-bottom: 2px solid burlywood;
+.nav-link-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .nav-link-text {
     color: #111111;
     font-weight: bold;
-    transition: color 0.2s;
     text-decoration: none;
 }
 
@@ -48,7 +49,14 @@
 }
 
 .active-nav-link {
-    color: burlywood; /* changes color for the active page */
+    color: burlywood;
+}
+
+.underscore {
+    height: 2px;
+    border-radius: 1px;
+    background-color: burlywood;
+    /* border: 0.5px solid burlywood; */
 }
 
 .site-title {
