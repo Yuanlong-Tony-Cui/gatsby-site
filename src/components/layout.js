@@ -59,21 +59,21 @@ const Layout = ({ pageTitle, children }) => {
           </li>
           <li className={navLinkTab}>
             <Link
-              to="/library"
-              className={`${navLinkText} ${location.pathname.startsWith("/library/") ? activeNavLink : ""}`}
-            >
-              Library
-            </Link>
-            <div className={`${location.pathname.startsWith("/library/") ? underscore : ""}`}></div>
-          </li>
-          <li className={navLinkTab}>
-            <Link
               to="/studio"
               className={`${navLinkText} ${location.pathname.startsWith("/studio/") ? activeNavLink : ""}`}
             >
               Studio
             </Link>
             <div className={`${location.pathname.startsWith("/studio/") ? underscore : ""}`}></div>
+          </li>
+          <li className={navLinkTab}>
+            <Link
+              to="/library"
+              className={`${navLinkText} ${location.pathname.startsWith("/library/") ? activeNavLink : ""}`}
+            >
+              Library
+            </Link>
+            <div className={`${location.pathname.startsWith("/library/") ? underscore : ""}`}></div>
           </li>
         </ul>
       </nav>
