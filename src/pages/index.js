@@ -25,7 +25,7 @@ const IndexPage = () => {
       </div>
       <p className='paragraph'>
         This will be the place where I post
-        contents that <s>none of my friends will be interested to read</s> share about my works and thoughts on various topics,
+        contents that share about my works and thoughts on various topics,
         including but not limited to engineering, literature, art, and personal development.
       </p>
       <ul className={customList}>
