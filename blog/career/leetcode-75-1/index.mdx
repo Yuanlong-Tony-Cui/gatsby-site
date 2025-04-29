@@ -4,235 +4,19 @@ date: '2025-02-24'
 slug: 'leetcode-75-1'
 category: 'career'
 tags: 'Algorithms, Data Structures, Python, Array / List, Two Pointers, Sliding Window, Prefix Sum'
-hero_image: './leetcode-75-cover.webp'
-hero_image_alt: 'Cover'
-hero_image_credit_text: 'DALL·E'
+hero_image: './Two_Pointers.png'
+hero_image_alt: 'Two Pointers'
+hero_image_credit_text: 'ChatGPT 4o'
 ---
 
 ---
 
 This blog post aims to walk through classic coding problems listed in [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/).
 
-Topics covered in this post are: Array / String, Two Pointers, Sliding Window, and Prefix Sum.
+Topics covered in this post are: Two Pointers, Sliding Window, Prefix Sum, and Array / String.
 These problems involve basic arrays, iterating, modifying arrays, or standard scanning.
 
 All solutions are written in Python and are optimized for performance and readability.
-
-# Array / String
-
-## 1768. Merge Strings Alternately
-
-```python
-class Solution:
-    def mergeAlternately(self, word1: str, word2: str) -> str:
-        result = []  # more performant than `result = ""`
-        i = 0
-        while i < len(word1) or i < len(word2):
-            if i < len(word1):
-                result.append(word1[i])  # more performant than `result += word1[i]`
-            if i < len(word2):
-                result.append(word2[i])
-            i += 1
-        return ''.join(result)
-
-        # NOTE: In Python, strings are immutable, meaning every time you perform an operation like result += char, a new string is created in memory. This results in repeated memory allocation and copying of the existing string contents, which becomes costly as the string grows.
-```
-
-## 1071. Greatest Common Divisor of Strings
-
-```python
-class Solution:
-    def gcdOfStrings(self, str1: str, str2: str) -> str:
-
-        # Intuition: Simply use gcd() on the string lengths as long as the strings have a GCD.
-        # Check: when str1 and str2 have a GCD (str1 = mGCD, str2 = nGCD),
-        # then str1 + str2 = (m + n)GCD = str2 + str1.
-        
-        if str1 + str2 != str2 + str1:
-            return ""
-        return str1[:math.gcd(len(str1), len(str2))]  # or `str2[:math.gcd(len(str1), len(str2))]`
-```
-
-## 1431. Kids With the Greatest Number of Candies
-
-```python
-class Solution:
-    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
-        # Intuition: For each kid, find the number of candies needed to make him/her
-        # the kid with the most candies.
-
-        max_num_candies = max(candies)  # the max num of candies
-    
-        return [(num_candies + extraCandies >= max_num_candies) for num_candies in candies]
-        # Syntax ("list comprehesion"): [<expression> for <item> in <iterable> if <condition>]
-        # which can also be done using a for loop.
-```
-
-## 605. Can Place Flowers
-
-```python
-class Solution:
-    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        # Intuition: Given `flowerbed` alone, the max num of additional flowers
-        # can already be determined.
-
-        num_allowed = 0
-        for i in range(len(flowerbed)):
-            if flowerbed[i] == 0:
-                # if left is unoccupied and right is unoccupied -> plant flower:
-                if (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed) - 1 or flowerbed[i+1] == 0):
-                    # print(i)
-                    flowerbed[i] = 1
-                    num_allowed += 1
-        return n <= num_allowed
-```
-
-## 345. Reverse Vowels of a String
-
-```python
-class Solution:
-    def reverseVowels(self, s: str) -> str:
-
-        # Intuition:
-        # "Reversing" is basically swapping against the central element.
-        # We can use the two-pointer method to avoid using `indices` in Solution 1.
-
-        vowels = set("aeiouAEIOU")
-        s = list(s)  # Convert string to list for mutability
-        left, right = 0, len(s) - 1
-
-        while left < right:
-            # Move `left` and `right` separately until they both point at vowels.
-            while left < right and s[left] not in vowels:
-                left += 1
-            while left < right and s[right] not in vowels:
-                right -= 1
-            
-            # Swap:
-            s[left], s[right] = s[right], s[left]
-            left += 1
-            right -= 1
-
-        return "".join(s)  # Convert list back to string
-```
-
-## 151. Reverse Words in a String
-
-```python
-class Solution:
-    def reverseWords(self, s: str) -> str:
-        words = s.split()
-        words.reverse()  # reversed as a list
-        return ' '.join(words)  # joined with ' '
-```
-
-## 238. Product of Array Except Self
-
-```python
-class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-
-        # Intuition:
-        # We notice to compute the product for each integer in `nums`,
-        # we would have to multiply all integers before and after it.
-        # e.g. For both `nums[5]` and `nums[6]`, we will need to compute the product of `nums[0]` to `nums[4]`, which are redundant calculations.
-
-        # We use two passes, which is still O(n).
-        # For each integer in `nums`,
-        # the forward pass computes the product of all integers before it and
-        # the backward pass computes the product of all integers after it.
-
-        result = [1] * len(nums)
-        
-        # Forward pass:
-        product = 1
-        for i in range(len(nums)):
-            result[i] = product
-            product *= nums[i]  # build up the "prefix product"
-        
-        # Backward pass:
-        product = 1
-        for i in range(len(nums)-1, -1, -1):
-            result[i] *= product
-            product *= nums[i]  # build up the "suffix product"
-        
-        return result
-```
-
-## 334. Increasing Triplet Subsequence
-
-```python 
-class Solution:
-    def increasingTriplet(self, nums: List[int]) -> bool:
-
-        # Intuition: 
-        # Since the question only asks for a True/False answer instead of all triple of indices, the algorithm can be simplified significantly.
-        # To check for the existence of such triples, the key idea is to find the 1st and 2nd minimum values seen so far. For example, for [2, 4, 1, 3, _], to make a triple exist, we only have to make sure _ is larger than 1 and 3 without having to comparing it with 2 or 4.
-
-        min_1 = float('inf')  # the smallest
-        min_2 = float('inf')  # the 2nd smallest
-
-        # (i < j < k) naturally holds in a for loop
-        for num in nums:
-            if num <= min_1:
-                min_1 = num
-            elif num <= min_2:  # min_1 < num <= min_2
-                min_2 = num
-            else:  # num > min_2
-                return True
-
-        return False
-```
-
-## 443. String Compression
-
-```python
-class Solution:
-    def compress(self, chars: List[str]) -> int:
-
-        # Intuition: We go through the list and modify it in-place.
-        # Again, `for i in range(len(chars))` won't work since `chars` will be modified inside the for loop.
-
-        # Helper function (for avoiding boilerplate code):
-        # For pass-by-reference, Python lists are mutable,
-        # but Python integers are immutable (needs to be returned explicitly).
-        #   i: the index right after the last duplicate of `prev_char`
-        #   count: the number of occurrences of `prev_char`
-        def compress_for_prev_char(chars, i, count):
-            # 1. Remove all duplicates (except the first occurrence):
-            chars[(i-count+1):i] = []
-            i -= (count - 1)  # adjusts `i` after the deletion
-
-            # 2. Append the count as digits to `chars` (conditionally):
-            if count > 1:
-                for idx, digit in enumerate(str(count)):
-                    chars.insert(i + idx, digit)
-                i += len(str(count))  # adjusts `i` after the insertion
-            return i
-
-        i = 0
-        prev_char = ""
-        count = 0
-        while i <= len(chars) - 1:
-            temp = chars[i]
-
-            if not prev_char or chars[i] == prev_char:  # Simply count:
-                count += 1
-            else:  # Compress the list for the last char:
-                i = compress_for_prev_char(chars, i, count)
-                count = 1  # reset count for this new (different) char:
-
-            # Update:
-            i += 1
-            prev_char = temp
-
-            # Handle the exit:
-            if i >= len(chars):
-                i = compress_for_prev_char(chars, i, count)
-                break
-
-        return len(chars)
-```
 
 # Two Pointers
 
@@ -479,4 +263,220 @@ class Solution:
                 return i
             left_sum += nums[i]
         return -1
+```
+
+# Array / String
+
+## 1768. Merge Strings Alternately
+
+```python
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        result = []  # more performant than `result = ""`
+        i = 0
+        while i < len(word1) or i < len(word2):
+            if i < len(word1):
+                result.append(word1[i])  # more performant than `result += word1[i]`
+            if i < len(word2):
+                result.append(word2[i])
+            i += 1
+        return ''.join(result)
+
+        # NOTE: In Python, strings are immutable, meaning every time you perform an operation like result += char, a new string is created in memory. This results in repeated memory allocation and copying of the existing string contents, which becomes costly as the string grows.
+```
+
+## 1071. Greatest Common Divisor of Strings
+
+```python
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+
+        # Intuition: Simply use gcd() on the string lengths as long as the strings have a GCD.
+        # Check: when str1 and str2 have a GCD (str1 = mGCD, str2 = nGCD),
+        # then str1 + str2 = (m + n)GCD = str2 + str1.
+        
+        if str1 + str2 != str2 + str1:
+            return ""
+        return str1[:math.gcd(len(str1), len(str2))]  # or `str2[:math.gcd(len(str1), len(str2))]`
+```
+
+## 1431. Kids With the Greatest Number of Candies
+
+```python
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        # Intuition: For each kid, find the number of candies needed to make him/her
+        # the kid with the most candies.
+
+        max_num_candies = max(candies)  # the max num of candies
+    
+        return [(num_candies + extraCandies >= max_num_candies) for num_candies in candies]
+        # Syntax ("list comprehesion"): [<expression> for <item> in <iterable> if <condition>]
+        # which can also be done using a for loop.
+```
+
+## 605. Can Place Flowers
+
+```python
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        # Intuition: Given `flowerbed` alone, the max num of additional flowers
+        # can already be determined.
+
+        num_allowed = 0
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0:
+                # if left is unoccupied and right is unoccupied -> plant flower:
+                if (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed) - 1 or flowerbed[i+1] == 0):
+                    # print(i)
+                    flowerbed[i] = 1
+                    num_allowed += 1
+        return n <= num_allowed
+```
+
+## 345. Reverse Vowels of a String
+
+```python
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+
+        # Intuition:
+        # "Reversing" is basically swapping against the central element.
+        # We can use the two-pointer method to avoid using `indices` in Solution 1.
+
+        vowels = set("aeiouAEIOU")
+        s = list(s)  # Convert string to list for mutability
+        left, right = 0, len(s) - 1
+
+        while left < right:
+            # Move `left` and `right` separately until they both point at vowels.
+            while left < right and s[left] not in vowels:
+                left += 1
+            while left < right and s[right] not in vowels:
+                right -= 1
+            
+            # Swap:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
+
+        return "".join(s)  # Convert list back to string
+```
+
+## 151. Reverse Words in a String
+
+```python
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        words = s.split()
+        words.reverse()  # reversed as a list
+        return ' '.join(words)  # joined with ' '
+```
+
+## 238. Product of Array Except Self
+
+```python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+
+        # Intuition:
+        # We notice to compute the product for each integer in `nums`,
+        # we would have to multiply all integers before and after it.
+        # e.g. For both `nums[5]` and `nums[6]`, we will need to compute the product of `nums[0]` to `nums[4]`, which are redundant calculations.
+
+        # We use two passes, which is still O(n).
+        # For each integer in `nums`,
+        # the forward pass computes the product of all integers before it and
+        # the backward pass computes the product of all integers after it.
+
+        result = [1] * len(nums)
+        
+        # Forward pass:
+        product = 1
+        for i in range(len(nums)):
+            result[i] = product
+            product *= nums[i]  # build up the "prefix product"
+        
+        # Backward pass:
+        product = 1
+        for i in range(len(nums)-1, -1, -1):
+            result[i] *= product
+            product *= nums[i]  # build up the "suffix product"
+        
+        return result
+```
+
+## 334. Increasing Triplet Subsequence
+
+```python 
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+
+        # Intuition: 
+        # Since the question only asks for a True/False answer instead of all triple of indices, the algorithm can be simplified significantly.
+        # To check for the existence of such triples, the key idea is to find the 1st and 2nd minimum values seen so far. For example, for [2, 4, 1, 3, _], to make a triple exist, we only have to make sure _ is larger than 1 and 3 without having to comparing it with 2 or 4.
+
+        min_1 = float('inf')  # the smallest
+        min_2 = float('inf')  # the 2nd smallest
+
+        # (i < j < k) naturally holds in a for loop
+        for num in nums:
+            if num <= min_1:
+                min_1 = num
+            elif num <= min_2:  # min_1 < num <= min_2
+                min_2 = num
+            else:  # num > min_2
+                return True
+
+        return False
+```
+
+## 443. String Compression
+
+```python
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+
+        # Intuition: We go through the list and modify it in-place.
+        # Again, `for i in range(len(chars))` won't work since `chars` will be modified inside the for loop.
+
+        # Helper function (for avoiding boilerplate code):
+        # For pass-by-reference, Python lists are mutable,
+        # but Python integers are immutable (needs to be returned explicitly).
+        #   i: the index right after the last duplicate of `prev_char`
+        #   count: the number of occurrences of `prev_char`
+        def compress_for_prev_char(chars, i, count):
+            # 1. Remove all duplicates (except the first occurrence):
+            chars[(i-count+1):i] = []
+            i -= (count - 1)  # adjusts `i` after the deletion
+
+            # 2. Append the count as digits to `chars` (conditionally):
+            if count > 1:
+                for idx, digit in enumerate(str(count)):
+                    chars.insert(i + idx, digit)
+                i += len(str(count))  # adjusts `i` after the insertion
+            return i
+
+        i = 0
+        prev_char = ""
+        count = 0
+        while i <= len(chars) - 1:
+            temp = chars[i]
+
+            if not prev_char or chars[i] == prev_char:  # Simply count:
+                count += 1
+            else:  # Compress the list for the last char:
+                i = compress_for_prev_char(chars, i, count)
+                count = 1  # reset count for this new (different) char:
+
+            # Update:
+            i += 1
+            prev_char = temp
+
+            # Handle the exit:
+            if i >= len(chars):
+                i = compress_for_prev_char(chars, i, count)
+                break
+
+        return len(chars)
 ```

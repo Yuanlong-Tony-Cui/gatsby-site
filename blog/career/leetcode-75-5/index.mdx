@@ -1,0 +1,97 @@
+---
+title: 'Cracking LeetCode 75 (Part 5)'
+date: '2025-04-29'
+slug: 'leetcode-75-5'
+category: 'career'
+tags: 'Algorithms, Data Structures, Python, Backtracking, Dynamic Programming'
+hero_image: './DP.png'
+hero_image_alt: 'DP - 2D'
+hero_image_credit_text: 'LeetCode'
+hero_image_credit_link: 'https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png'
+---
+
+---
+
+This blog post aims to walk through classic coding problems listed in [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/).
+
+Topics covered in this post are: Backtracking, and Dynamic Programming (1D and Multidimensional).
+
+All solutions are written in Python and are optimized for performance and readability.
+
+# Backtracking
+Backtracking problems often require a helper funtion `backtrack()` called in recursion that carries the following parameters:
+1. What has been done
+2. What still needs to be done
+3. Other helper parameters
+
+For this type of problems, we "backtrack" a solution when its _what has been done_ clearly doesn't satisfy a certain requirement.
+For example, when we are building multiple n-element solutions that sum up to k,
+we know a half-built solution definitely won't work when it has less than n elements but the sum already exceeds k.
+We then backtrack from this solution by terminating that path immediately.
+
+## 17. Letter Combinations of a Phone Number
+```python
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+
+        # Intuition:
+        # By using recursive calls, we are able to let each string of digits of length N explore its further possible strings (of length N+1).
+
+        if not digits:
+            return []
+        
+        phone_map = {
+            "2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+            "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"
+        }
+        
+        result = []
+        # path: a list of letters built so far
+        # index: `phone_map[digits[index]]` are potential letters to add
+        def backtrack(path, index):
+            # Base case: we've used all the digits
+            if index == len(digits):
+                result.append("".join(path))
+                return
+            # Recursion: consume one more digit
+            for letter in phone_map[digits[index]]:
+                backtrack(path + [letter], index + 1)
+                
+        backtrack([], 0)  # Start backtracking from index 0
+        return result
+```
+
+## 216. Combination Sum III
+```python
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+
+        # Key:
+        # - Recursively call a function on the remaining sum to reach
+        # - To avoid redundency (e.g. [1, 4, 7] vs [4, 1, 7]), we always start from lower numbers by using a `start` and updating it.
+        # - To properly push a combination to `results`, we should push a copy of it using `list(comb)`. Otherwise, when `comb` gets modified later on, combinations in `results` will be changed too.
+
+        results = []
+        # comb: "what has been done"
+        # target: "what is to be done"
+        # start: avoids (1) same digit used more than once, (2) same combination with digits in different orders
+        def backtrack(comb, target, start):
+            if target == 0 and len(comb) == k:  # success
+                results.append(list(comb))  # ***** appends a copy not a reference!
+                return
+            elif target < 0 or len(comb) == k:  # failure
+                return
+            
+            # digit: [start, 9]
+            for digit in range(start, 10):
+                comb.append(digit)
+                backtrack(comb, target - digit, digit + 1)
+                comb.pop()  # backtracks
+
+        backtrack([], n, 1)
+        return results
+```
+
+# DP - 1D
+
+# DP - Multidimensional

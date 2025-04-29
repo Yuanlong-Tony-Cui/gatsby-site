@@ -1,0 +1,327 @@
+---
+title: 'Cracking LeetCode 75 (Part 4)'
+date: '2025-04-28'
+slug: 'leetcode-75-4'
+category: 'career'
+tags: 'Algorithms, Data Structures, Python, Hashmap / Set, Graphs, DFS, BFS'
+hero_image: './Graph.png'
+hero_image_alt: 'Graph'
+hero_image_credit_text: 'ChatGPT 4o'
+---
+
+---
+
+This blog post aims to walk through classic coding problems listed in [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/).
+
+Topics covered in this post: Hashmap / Set, and Graphs (DFS and BFS).
+I grouped these topics together because graphs are often represented in the form of hashmaps (or dictionaries),
+where the key is a node and the value a list of its neighbouring nodes.
+
+All solutions are written in Python and are optimized for performance and readability.
+
+# Hashmap / Set
+
+## 2215. Find the Difference of Two Arrays
+```python
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        # We first convert lists to sets for faster lookups
+        set1 = set(nums1)
+        set2 = set(nums2)
+
+        diff1 = list(set1 - set2)
+        diff2 = list(set2 - set1)
+
+        return [diff1, diff2]
+```
+
+## 1207. Unique Number of Occurrences
+```python
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+
+        # Intuition:
+        # We first count the frequency for each integer using a hash map, then we can use a set that collects the frequency values for faster lookups.
+
+        # Build a hash map:
+        hashmap = {}  # key: the integer, value: the frequency
+        for num in arr:
+            if num in hashmap:
+                hashmap[num] += 1
+            else:
+                hashmap[num] = 1
+        
+        # Check for duplicate frequencies:
+        frequencies = set()
+        for freq in hashmap.values():
+            # Check:
+            if freq in frequencies:
+                return False
+            # Add:
+            frequencies.add(freq)
+
+        return True
+```
+
+## 1657. Determine if Two Strings Are Close
+```python
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        
+        # Intuition:
+        # For each word, we build a hash map that maps a letter to number of occurrences.
+        # e.g. word1 = "aabbbc", word2 = "ccaaab", then by applying Operation 2 twice on word1, we would be able to get word2 - since the "frequency distributions" of the letters are the same.
+
+        if len(word1) != len(word2) or set(word1) != set(word2):
+            return False
+
+        # Compute character frequencies manually
+        freq1 = {}
+        freq2 = {}
+        for char in word1:
+            freq1[char] = freq1.get(char, 0) + 1
+            # `freq1.get(char, 0)` returns 0 if `char` is not found.
+        for char in word2:
+            freq2[char] = freq2.get(char, 0) + 1
+        
+        if set(freq1.keys()) != set(freq2.keys()):
+            return False
+        
+        # The "frequency distributions" must be the same:
+        if sorted(freq1.values()) != sorted(freq2.values()):
+            return False
+        
+        return True
+```
+
+## 2352. Equal Row and Column Pairs
+```python
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+
+        # Intuition:
+        # Since we're asked to count the number of matches, our intuition is to build a set or a dictionary.
+        # Note that lists are not hashable (i.e. cannot be used as a dictionary key or stored in a set), so we have to first convert them into tuples.
+
+        row_count = {}  # maps a row to its num of occurrences
+
+        # Count the rows' occurrences:
+        for row in grid:
+            row_tuple = tuple(row)  # converts list to tuple (hashable)
+            row_count[row_tuple] = row_count.get(row_tuple, 0) + 1
+
+        # Loop through the columns to find matches:
+        count = 0
+        for col in zip(*grid):  # `zip(*grid)` transposes the matrix
+            col_tuple = tuple(col)
+            count += row_count.get(col_tuple, 0)
+
+        return count
+```
+
+# Graphs - DFS
+
+## Keys and Rooms
+```python
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+
+        # Intuition:
+        # This problem reminds me of the "number of provinces" problem.
+        # We could use DFS to unlock rooms sequentially.
+
+        visited = [False] * len(rooms)
+
+        def dfs(i_room, visited):
+            visited[i_room] = True
+            for room in rooms[i_room]:
+                if not visited[room]:  # avoids getting stuck in an infinite loop
+                    dfs(room, visited)
+        
+        dfs(0, visited)
+
+        return all(visited)  # evaluates to True when all items in `visited` are True
+```
+
+## 547. Number of Provinces
+```python
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+
+        # Intuition: We run depth-first search to explore what cities are
+        # indirectly connected to current city.
+        # We should also use `visited` to avoid visiting two connected cities back and forth (infinite loop).
+
+        # We use dfs() to do in-depth visits starting from i_city.
+        def dfs(i_city, visited):
+            visited[i_city] = True
+            
+            # Run dfs() on directly connected cities:
+            for i_neighbour in range(len(isConnected)):
+                if isConnected[i_city][i_neighbour] == 1 and not visited[i_neighbour]:
+                    dfs(i_neighbour, visited)
+
+        n = len(isConnected)
+        visited = [False] * n  # a list of booleans
+        num_provinces = 0
+
+        for i_city in range(n):
+            # Run depth-first search on unvisited cities:
+            if not visited[i_city]:
+                dfs(i_city, visited)
+                num_provinces += 1
+                # Each city that is not visited by depth-first search
+                # will form a new province.
+
+        return num_provinces
+```
+
+## 1466. Reorder Routes to Make All Paths Lead to the City Zero
+```python
+from collections import defaultdict
+
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+
+        # Key:
+        # - Use DFS for graph search. For `dfs(city)`, all the neighbours should point to `city`, and we start the recursion by calling `dfs(0)`.
+
+        # Store neighbours for each city:
+        neighbours = defaultdict(list)
+        for source, dest in connections:
+            neighbours[source].append((dest, 1))
+            neighbours[dest].append((source, -1))
+        
+        num_changed = 0
+        visited = set()
+        def dfs(city):
+            nonlocal num_changed
+            visited.add(city)
+            # All its neighbours should point to this city
+            for neighbour, direction in neighbours[city]:
+                if neighbour not in visited:
+                    if direction == 1:
+                        num_changed += 1
+                    dfs(neighbour)
+
+        dfs(0)
+        return num_changed
+```
+
+## 399. Evaluate Division
+```python
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        
+        # Keys:
+        # - Observation: Given the values of a/b and b/c ,then we could compute a/c by using the 'path' a -> b -> c. At the same time, queries like b/a, c/b, and c/a could also be computed.
+        # - Graph: We use graph to store the info in `equations` and `values` and process each query in `queries`. Given a/b = 3, we will have graph[a][b] = 3 and graph[b][a] = 1/3.
+        # - DFS: To find a/c, we check if c is a neighbour of a. If it is, the result is found immediately; If not, we continue with each neighbour of a (e.g. b) and use recursion to check if c is a neighbour of b.
+        # - For each recursive path, we use a `visited` set to avoid cycles (especially in a graph). Each recursive path has its _own_ `visited` blacklist.
+
+        # STEP 1: Store `equations` and `values` in a graph
+        graph = defaultdict(lambda: defaultdict(float))  # nested dict
+        for (numerator, denominator), value in zip(equations, values):
+            graph[numerator][denominator] = value
+            graph[denominator][numerator] = 1 / value
+        
+        # STEP 2: DFS in the graph
+        def dfs(curr_node, target_node, acc_product, visited):
+            visited.add(curr_node)
+            result = -1.0
+            neighbours = graph[curr_node]
+            # target found --> result obtained
+            if target_node in neighbours:
+                result = acc_product * neighbours[target_node]
+            # target not found --> run recursion on neighbour nodes
+            else:
+                for neighbour, quotient in neighbours.items():
+                    if neighbour not in visited:
+                        result = dfs(neighbour, target_node, acc_product * quotient, visited)
+                        if result != -1.0:
+                            break
+            visited.remove(curr_node)
+            return result
+
+        results = []
+        for numerator, denominator in queries:
+            result = -1.0  # base case #1: variables not found
+            if numerator in graph and denominator in graph:
+                if numerator == denominator:
+                    result = 1.0  # base case #2: e.g. 'a'/'a'
+                else:
+                    # recursive case
+                    visited = set()
+                    result = dfs(numerator, denominator, 1, visited)
+            results.append(result)
+
+        return results
+```
+
+# Graphs - BFS
+
+## 1926. Nearest Exit from Entrance in Maze
+```python
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+
+        # Intuition:
+        #   1. BFS is the intuitive choice for finding the shortest paths. It explores all neighbors at the current level before moving deeper, ensuring that we find the nearest exit first.
+        #   2. Visited cells should be marked as '+' to prevent revisiting (infinite loop).
+
+        m, n = len(maze), len(maze[0])
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
+        
+        queue = deque([(entrance[0], entrance[1], 0)])  # (row, col, steps)
+        maze[entrance[0]][entrance[1]] = '+'  # Mark entrance as visited
+        while queue:
+            r, c, steps = queue.popleft()
+            # Take a further step to each direction:
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc  # new row & new col
+                if 0 <= nr < m and 0 <= nc < n and maze[nr][nc] == '.':
+                    if nr == 0 or nr == m-1 or nc == 0 or nc == n-1:
+                        return steps + 1  # exit found
+                    queue.append((nr, nc, steps + 1))
+                    maze[nr][nc] = '+'  # marked as visited
+
+        return -1  # no exit found
+```
+
+## 994. Rotting Oranges
+```python
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        
+        # Keys:
+        # - Oranges are rotten in a BFS manner
+        # - In the queue used for BFS, we use (row, col, timestamp) to track elapsed time as we visit batches.
+
+        # STEP 1: Find all rotten and fresh oranges
+        rows, cols = len(grid), len(grid[0])
+        queue = deque()
+        num_fresh = 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 2:
+                    queue.append((r, c, 0))  # (row, col, timestamp)
+                elif grid[r][c] == 1:
+                    num_fresh += 1
+
+        # STEP 2: Let oranges rot using BFS
+        directions = [(-1,0), (1,0), (0,-1), (0,1)]
+        num_minutes = 0
+        while queue:
+            r, c, timestamp = queue.popleft()
+            num_minutes = max(num_minutes, timestamp)  # updates time elapsed
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                # Let this orange rot if it's fresh:
+                if (0 <= nr < rows and 0 <= nc < cols) and grid[nr][nc] == 1:
+                    grid[nr][nc] = 2
+                    queue.append((nr, nc, timestamp + 1))
+                    num_fresh -= 1
+
+        # STEP 3: Determine
+        return num_minutes if num_fresh == 0 else -1
+```
