@@ -1,0 +1,282 @@
+---
+title: 'Cracking LeetCode 75 (Part 3)'
+date: '2025-04-29'
+slug: 'leetcode-75-3'
+category: 'career'
+tags: 'Algorithms, Data Structures, Python, Stack, Queue, Heap / Priority Queue'
+hero_image: './Graph.png'
+hero_image_alt: 'Graph'
+hero_image_credit_text: 'ChatGPT 4o'
+---
+
+---
+
+This blog post aims to walk through classic coding problems listed in [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/).
+
+Topics covered in this post: Stack, Queue, and Heap / Priority Queue.
+
+All solutions are written in Python and are optimized for performance and readability.
+
+# Stack
+
+## 2390. Removing Stars From a String
+```python
+class Solution:
+    def removeStars(self, s: str) -> str:
+
+        # Intuition: use stack since it involves the idea of "cancelling out" the latest chars (most recently added).
+
+        stack = []
+        for char in s:
+            if char == '*':
+                stack.pop()  # removes a char from stack
+            else:
+                stack.append(char)  # adds to stack
+
+        return ''.join(stack)  # list to string
+```
+
+## 735. Asteroid Collision
+```python
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        # Intuition:
+        # The idea of cancelling out the previous item in an array implies that Stack would be useful.
+
+        stack = []
+        for asteroid in asteroids:
+            # The asteroid will keep collide with `stack[-1]` until:
+            # 1) `stack` becomes empty, or
+            # 2) `stack[-1]` is greater than or equal to `abs(asteroid)`.
+            
+            while stack and stack[-1] > 0 and asteroid < 0:  # Collision will happen.
+                if stack[-1] < abs(asteroid):
+                    stack.pop()
+                    # The while loop continues.
+                elif stack[-1] > abs(asteroid):
+                    break
+                elif stack[-1] == abs(asteroid):
+                    stack.pop()
+                    break
+            else:  # No collision will happen.
+                stack.append(asteroid)
+        
+        return stack
+```
+
+## 394. Decode String
+```python
+class Solution:
+    def decodeString(self, s: str) -> str:
+
+        # Intuition:
+        # The tricky part is handling nested square brackets. When we come across multiple square brackets in sequence, we have to resolve from the inner-most bracket (latest) to outer-most bracket (oldest) - which is a sign that a stack might be needed.
+        # To implement this, whenever we see a '[', we will need to remember:
+        #   1. previous_string: where we will append the repeated string
+        #   2. repeated_count: number of times to repeat for whatever is in the upcoming square bracket
+
+        stack = []  # stores states (previous_string, repeated_count)
+
+        curr_string = ""
+        num = 0  # number of times that we are about to repeat
+        for char in s:
+            if char.isdigit():
+                num = num * 10 + int(char)  # handles multi-digit numbers
+            elif char == '[':
+                # Store the state onto stack:
+                stack.append((curr_string, num))
+                curr_string, num = "", 0  # reset
+            elif char == ']':
+                # Build a string using the last state from the stack:
+                prev_string, num_to_repeat = stack.pop()
+                curr_string = prev_string + num_to_repeat * curr_string
+            else:
+                curr_string += char  # a regular char
+
+        return curr_string
+```
+
+# Queue
+
+## 933. Number of Recent Calls
+```python
+class RecentCounter:
+
+    # Intuition:
+    # There is no need to keep all past requests since we only care about the ones that are within the [t-3000, t] frame.
+
+    def __init__(self):
+        self.requests = deque()
+
+    def ping(self, t: int) -> int:
+        self.requests.append(t)
+        
+        # Remove all requests older than 3000 ms
+        while self.requests[0] < t - 3000:
+            self.requests.popleft()
+        
+        return len(self.requests)
+
+
+# Your RecentCounter object will be instantiated and called as such:
+# obj = RecentCounter()
+# param_1 = obj.ping(t)
+```
+
+## 649. Dota2 Senate
+```python
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+
+        # Intuition:
+        # 1. The sequence (index in the string) matters. For "RDDRR", the Dire still wins over the Radiant.
+        # 2. Whenever we move to the next round, the remaining senators must vote in the same order as they do in the beginning.
+
+        queue_R = deque()
+        queue_D = deque()
+        n = len(senate)
+
+        # Populate queues with indices:
+        for i, party in enumerate(senate):
+            if party == 'R':
+                queue_R.append(i)
+            else:
+                queue_D.append(i)
+
+        # Let senators ban others until one party is empty:
+        while queue_R and queue_D:
+            # We let one senator from each party to compete. The one of smaller index will ban the other one and then move to the next round.
+            r = queue_R.popleft()
+            d = queue_D.popleft()
+            if r < d:
+                queue_R.append(r + n)
+            else:
+                queue_D.append(d + n)
+        
+        return "Radiant" if queue_R else "Dire"
+```
+
+# Heap / Priority Queue
+
+## 215. Kth Largest Element in an Array
+
+```python
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+
+        # Intuition:
+        # We keep building a min-heap consisting of the top k largest elements seen so far while discarding small elements. Then in the end, the root node will be the k-th largest element.
+
+        min_heap = nums[:k]  # Create a min-heap with the first k elements
+        heapq.heapify(min_heap)  # Convert the list `min_heap` into a heap queue
+        
+        for num in nums[k:]:
+            if num > min_heap[0]:  # `min_heap[0]` is the top 
+                heapq.heappushpop(min_heap, num)
+                # This function allows us to push an element onto the heap and pop the smallest element in one combined operation.
+        
+        return min_heap[0]  # The root of the heap is the k-th largest element
+```
+
+## 2336. Smallest Number in Infinite Set
+```python
+import heapq
+
+class SmallestInfiniteSet:
+
+    # Keys:
+    # - curr_int: Visualize the natural sequence as [1, 2, 3, ..., inf], where we only need to use `curr_int` to mark the smallest integer that is not untouched in the sequence (i.e. not yet popped).
+    # - heap: This heapq is a priority queue that collects ints that are added back. popSmallest() will first check for the target in `heap` before moving onto the untouched sequence.
+    # - recovered_ints: addBack() may bring duplicates to `heap`. `recovered_ints` simply makes these lookups faster, in O(1).
+
+    def __init__(self):
+        self.curr_int = 1  # smallest integer that is untouched
+        self.heap = []  # min-heap for added-back integers
+        self.recovered_ints = set()  # for faster look up (to avoid duplicates in the heap)
+
+    def popSmallest(self) -> int:
+        if self.heap:
+            smallest = heapq.heappop(self.heap)
+            self.recovered_ints.remove(smallest)
+            return smallest
+        smallest = self.curr_int
+        self.curr_int += 1
+        return smallest
+
+    def addBack(self, num: int) -> None:
+        if num in self.recovered_ints or num >= self.curr_int:
+            return
+        heapq.heappush(self.heap, num)
+        self.recovered_ints.add(num)
+        
+
+
+# Your SmallestInfiniteSet object will be instantiated and called as such:
+# obj = SmallestInfiniteSet()
+# param_1 = obj.popSmallest()
+# obj.addBack(num)
+```
+
+## 2542. Maximum Subsequence Score
+
+```python
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+
+        # Keys:
+        # The score if basically: `sum * min` over k selected indices, where we try to maximize both `sum` and `min`.
+        # - Sorting nums2 in descending order is the most critical part of solving this problem. By doing so, we make sure the current nums2 we are looking at is always the smallest nums2 we've seen so far.
+
+        pairs = list(zip(nums2, nums1))
+        pairs.sort(reverse=True)  # sorted by nums2, in descending order
+
+        heap = []
+        sum_nums1 = 0
+        max_score = 0
+        for num2, num1 in pairs:
+            # If num2 is the smallest value in nums2 over a selected subsequence, then the maximum score we could ever get is `sum_nums1 * _`, where _ is a value >= num2.
+            heapq.heappush(heap, num1)
+            sum_nums1 += num1
+            if len(heap) > k:
+                sum_nums1 -= heapq.heappop(heap)
+            if len(heap) == k:
+                max_score = max(max_score, sum_nums1 * num2)
+
+        return max_score
+```
+
+## 2462. Total Cost to Hire K Workers
+
+```python
+import heapq
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        # Key:
+        # - Use priority queue (heap) for quickly getting the candidate with the smallest cost
+        # - In the heap, we always keep `candidates` num of candidates from both ends: [3, 2, 4, _, _, 1, 2, 7] if `candidates` is 3
+
+        # Add candidates from both ends to `heap`
+        heap = []
+        for i in range(candidates):
+            heap.append((costs[i], 0))
+        for i in range(max(candidates, len(costs) - candidates), len(costs)):  # If the candidates counting from both ends overlap, we avoid duplication by starting at `max(candidates, len(costs) - candidates)` for the right side.
+            heap.append((costs[i], 1))
+        heapq.heapify(heap)
+        
+        # Get k workers from candidates
+        total_cost = 0
+        next_head, next_tail = candidates, len(costs) - 1 - candidates
+        for _ in range(k): 
+            curr_cost, curr_sec = heapq.heappop(heap)
+            total_cost += curr_cost
+            # Add more to `heap` to maintain `candidates` num of candidates on both ends
+            if next_head <= next_tail:
+                if curr_sec == 0:
+                    heapq.heappush(heap, (costs[next_head], 0))
+                    next_head += 1
+                else:
+                    heapq.heappush(heap, (costs[next_tail], 1))
+                    next_tail -= 1
+                    
+        return total_cost
+```
