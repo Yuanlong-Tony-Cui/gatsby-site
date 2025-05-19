@@ -17,7 +17,7 @@
     padding: 0; /* removes default styles for <ul> */
     justify-content: left; /* aligns items to the left */
     list-style: none; /* removes the dots */
-    margin: 0.25rem 0; /* changes default for <ul> */
+    margin: 2rem 0 1rem; /* changes default for <ul> */
 }
 
 .nav-bar {
@@ -25,7 +25,6 @@
     top: 0;
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 0.25rem;
 }
 
 @media (min-width: 768px) {
@@ -71,7 +70,7 @@
     font-size: 3rem;
     color: burlywood; /* theme colour */
     font-weight: 700;
-    margin: 3rem 0 1rem;
+    margin: 2rem 0 2rem;
 }
 
 .hero-image {
