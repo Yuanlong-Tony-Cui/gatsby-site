@@ -15,7 +15,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 
 const StudioPage = ({ data }) => {
   return (
-    <Layout pageTitle="Posts: Studio">
+    <Layout pageTitle="Artworks">
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Keyboard"

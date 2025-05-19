@@ -4,7 +4,6 @@
     font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; /* used by Medium */
     position: relative;
     padding: 0 1rem;
-    overflow-x: hidden; /* hides horizontal overflow */
 }
 
 .heading {
@@ -14,10 +13,19 @@
 .nav-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 1rem;
     padding: 0; /* removes default styles for <ul> */
     justify-content: left; /* aligns items to the left */
     list-style: none; /* removes the dots */
+    margin: 0.25rem 0; /* changes default for <ul> */
+}
+
+.nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.25rem;
 }
 
 @media (min-width: 768px) {
@@ -63,7 +71,7 @@
     font-size: 3rem;
     color: burlywood; /* theme colour */
     font-weight: 700;
-    margin: 3rem 0;
+    margin: 3rem 0 1rem;
 }
 
 .hero-image {

@@ -15,7 +15,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 
 const LibraryPage = ({ data }) => {
   return (
-    <Layout pageTitle="Posts: Library">
+    <Layout pageTitle="Writings & Notes">
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Bridge"

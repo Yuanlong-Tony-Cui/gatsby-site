@@ -15,7 +15,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 
 const BlogPage = ({ data }) => {
   return (
-    <Layout pageTitle="Posts: Career">
+    <Layout pageTitle="Engineering Projects">
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StaticImage
           alt="Career Cover"

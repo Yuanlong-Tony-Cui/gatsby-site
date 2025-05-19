@@ -1,0 +1,32 @@
+---
+title: "Node.js: Event Loop"
+date: '2025-05-19'
+slug: 'nodejs-event-loop'
+category: 'career'
+tags: 'Node.js, Event Loop, Promise, Asynchronous Programming, V8'
+hero_image: './nodejs.png'
+hero_image_alt: 'Node.js Event Loop'
+hero_image_credit_text: 'Media'
+hero_image_credit_link: 'https://media.licdn.com/dms/image/v2/C5612AQGTqA8MIhM6iQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520057152676?e=2147483647&v=beta&t=3qXG3OBZJvO0D0bymOyEk_IqM0M8LdVhqJeiJAXBrco'
+---
+
+The following code can be used to clearly see how Node.js executes asynchronous code in the synchronous workflow.
+
+JavaScript Code:
+```javascript
+console.log("1");
+
+setTimeout(() => console.log("macrotask"), 0);
+
+Promise.resolve().then(() => console.log("microtask"));
+
+console.log("2");
+```
+
+Expected Output:
+```javascript
+1
+2
+microtask
+macrotask
+```

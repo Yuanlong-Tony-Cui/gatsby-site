@@ -47,7 +47,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch; /* stretches elements to have same width */
-    --gap-posts: 20px;
+    --gap-posts: 1.25rem;
     gap: var(--gap-posts);
     margin: var(--gap-posts) 0;
 }
