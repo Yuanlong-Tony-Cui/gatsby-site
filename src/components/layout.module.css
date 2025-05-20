@@ -12,12 +12,15 @@
 
 .nav-links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 0; /* removes default styles for <ul> */
+    /* scrollable nav bar */
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: clamp(1.5rem, 5vw, 4rem); /* fluid scaling */
     justify-content: left; /* aligns items to the left */
-    list-style: none; /* removes the dots */
-    margin: 2rem 0 1rem; /* changes default for <ul> */
+    /* remove default styles for <ul> */
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-bar {
@@ -25,18 +28,7 @@
     top: 0;
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.9);
-}
-
-@media (min-width: 768px) {
-    .nav-links {
-        gap: 40px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .nav-links {
-        gap: 60px;
-    }
+    padding: 0.5rem 0;
 }
 
 .nav-link-tab {
