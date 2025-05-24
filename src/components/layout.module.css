@@ -3,7 +3,7 @@
     max-width: 800px;
     font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; /* used by Medium */
     position: relative;
-    padding: 0 1rem;
+    padding: 1rem 1rem 0; /* uses top padding to fix top margin collapsing of the <header> */
 }
 
 .heading {
