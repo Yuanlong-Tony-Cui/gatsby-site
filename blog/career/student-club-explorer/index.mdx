@@ -1,0 +1,46 @@
+---
+title: "Student Club Explorer"
+date: '2025-05-29'
+slug: 'student-club-explorer'
+category: 'career'
+tags: 'Python, Web Scraping, Automation, Beautiful Soup'
+hero_image: './uoft-student-club.jpg'
+hero_image_alt: 'U of T Student Club'
+hero_image_credit_text: 'University of Toronto'
+hero_image_credit_link: 'https://sop.utoronto.ca/'
+---
+---
+
+## 🧭 Student Club Explorer
+
+**Student Club Explorer** is a Python-based tool that explores and extracts information about student clubs from the University of Toronto’s club directory. It extracts club details, contact info, interests, and more — with support for keyword-based filtering.
+
+### 💡 Motivation
+
+While working in an administrative role at the University of Toronto, my partner encountered a challenge: she needed to extract student club information — such as primary contact emails, origin campuses, and official website links — from the [Student Organization Portal (SOP)](https://sop.utoronto.ca/groups/). She asked if there were any existing tools that could help with this task.
+
+After understanding the requirements and evaluating the available options, it became clear that building a lightweight, customized script would be faster and more flexible than relying on a general-purpose tool. That's how **Student Club Explorer** came to life — a tool built to automate and streamline this data collection process.
+
+### 🔍 Intuition
+
+The SOP provides a directory of student organizations, where each club is listed with a clickable name linking to its individual profile page. While the homepage displays basic information like the club name and campus, key details — such as the primary email address or external website — are only available on each club’s individual page.
+
+Upon inspection, these profile pages follow a recognizable structure: for instance, the contact email consistently appears under a "Contact" heading and before the next section like "Address". These structural patterns make the site highly amenable to HTML parsing and automation, making a custom scraper both practical and efficient for collecting structured data at scale.
+
+### 📌 Features
+
+* 🔍 Scrapes club names, campuses, websites, emails, and interest tags
+* 🌐 Follows each club’s individual profile page for deeper details
+* 🧠 Filters clubs by interest keywords
+* 📤 Exports clean, UTF-8 encoded CSV files
+* ⏳ Displays a real-time progress bar using `tqdm`
+
+### 🛠️ Technologies
+
+* Python 3.11
+* `requests` for HTTP requests
+* `beautifulsoup4` for HTML parsing
+* `tqdm` for progress bar
+* `csv` for output formatting
+
+To see how specifically these libraries were used, feel free to visit the [source code](https://github.com/Yuanlong-Tony-Cui/student-club-explorer) on GitHub.

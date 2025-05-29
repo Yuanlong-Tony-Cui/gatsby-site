@@ -1,5 +1,5 @@
 ---
-title: "Node.js: Event Loop"
+title: "Node.js Event Loop"
 date: '2025-05-19'
 slug: 'nodejs-event-loop'
 category: 'career'
@@ -9,10 +9,14 @@ hero_image_alt: 'Node.js Event Loop'
 hero_image_credit_text: 'Media'
 hero_image_credit_link: 'https://media.licdn.com/dms/image/v2/C5612AQGTqA8MIhM6iQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520057152676?e=2147483647&v=beta&t=3qXG3OBZJvO0D0bymOyEk_IqM0M8LdVhqJeiJAXBrco'
 ---
+---
 
-The following code can be used to clearly see how Node.js executes asynchronous code in the synchronous workflow.
+## 🧠 Node.js Event Loop: Microtasks vs Macrotasks
 
-JavaScript Code:
+### 📦 Example
+
+Let’s take a look at this short Node.js script:
+
 ```javascript
 console.log("1");
 
@@ -23,10 +27,38 @@ Promise.resolve().then(() => console.log("microtask"));
 console.log("2");
 ```
 
-Expected Output:
-```javascript
+which outputs:
+
+```
 1
 2
 microtask
 macrotask
 ```
+
+
+### 🔍 Sequence
+
+This example demonstrates how Node.js handles asynchronous code within a synchronous workflow using the **event loop**, specifically:
+
+* The **Call Stack** executes synchronous code line by line.
+* The **Microtask Queue** (e.g. Promises, `await`) runs *after* the stack is clear but *before* any macrotasks.
+* The **Macrotask Queue** (e.g. `setTimeout`, I/O) runs *after* all microtasks are complete.
+
+
+
+### ⚙️ Step-by-Step Breakdown:
+
+1. `console.log("1")` → runs immediately.
+2. `setTimeout(..., 0)` → schedules a **macrotask**.
+3. `Promise.resolve().then(...)` → queues a **microtask**.
+4. `console.log("2")` → runs next (still in call stack).
+5. Microtask (`console.log("microtask")`) runs.
+6. Macrotask (`console.log("macrotask")`) finally runs.
+
+
+
+### ✅ Key Takeaways
+
+* Node.js is **single-threaded** but asynchronous.
+* **Microtasks** always run before **macrotasks** once the call stack is empty.
